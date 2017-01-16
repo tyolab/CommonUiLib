@@ -9,6 +9,11 @@ import android.widget.ImageView;
  */
 
 public class ImageViewAutoRefreshed extends ImageView {
+
+	/**
+	 * index of current showing image
+	 */
+	protected int current = -1;
 	
 	/**
 	 * @param context
