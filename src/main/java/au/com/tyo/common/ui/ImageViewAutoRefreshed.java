@@ -1,5 +1,6 @@
 package au.com.tyo.common.ui;
 
+import android.annotation.TargetApi;
 import android.content.Context;
 import android.os.Handler;
 import android.util.AttributeSet;
@@ -74,6 +75,7 @@ public class ImageViewAutoRefreshed extends ImageView {
 	 * @param defStyleAttr
 	 * @param defStyleRes
 	 */
+    @TargetApi(21)
 	public ImageViewAutoRefreshed(Context context, AttributeSet attrs, int defStyleAttr, int defStyleRes) {
 		super(context, attrs, defStyleAttr, defStyleRes);
 		init(context);
@@ -86,6 +88,10 @@ public class ImageViewAutoRefreshed extends ImageView {
 
     public int getTimeout() {
         return timeout;
+    }
+
+    public Object getCurrentItem() {
+        return images.get(current);
     }
 
     /**

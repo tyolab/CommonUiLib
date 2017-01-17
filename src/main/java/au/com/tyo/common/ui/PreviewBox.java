@@ -4,20 +4,17 @@ package au.com.tyo.common.ui;
  * Created by "Eric Tang (dev@tyo.com.au)" on 14/1/17.
  */
 
+import android.annotation.TargetApi;
 import android.content.Context;
 import android.util.AttributeSet;
 import android.util.Log;
 import android.view.View;
 import android.widget.FrameLayout;
 
-import com.tyolab.tubelib.Youtube;
-import com.tyolab.tubelib.YoutubeVideo;
-
 import java.util.ArrayList;
 
 import au.com.tyo.common.ui.ImageViewAutoRefreshed;
 import au.com.tyo.common.ui.ImageViewAutoRefreshed.ImageItem;
-import tv.suntv.android.R;
 
 public class PreviewBox extends FrameLayout {
 
@@ -66,6 +63,7 @@ public class PreviewBox extends FrameLayout {
      * @param defStyleAttr
      * @param defStyleRes
      */
+    @TargetApi(21)
     public PreviewBox(Context context, AttributeSet attrs, int defStyleAttr, int defStyleRes) {
         super(context, attrs, defStyleAttr, defStyleRes);
         init();
@@ -73,7 +71,6 @@ public class PreviewBox extends FrameLayout {
 
     private void init() {
         this.setClickable(true);
-        current = -1;
     }
 
     public void setOnClickListener(View.OnClickListener listener) {
@@ -85,10 +82,7 @@ public class PreviewBox extends FrameLayout {
     }
 
     public ImageItem getCurrentItem() {
-        if (current == -1)
-            return null;
-
-        return items.get(current);
+        return (ImageItem) imgView.getCurrentItem();
     }
 
     @Override
@@ -108,7 +102,6 @@ public class PreviewBox extends FrameLayout {
     /**
      *
      * @param images
-     * @param timeout
      */
     public void start(ArrayList images) {
         imgView.setImages(images);
