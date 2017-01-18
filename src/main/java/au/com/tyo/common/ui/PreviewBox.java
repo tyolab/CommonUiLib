@@ -10,10 +10,10 @@ import android.util.AttributeSet;
 import android.util.Log;
 import android.view.View;
 import android.widget.FrameLayout;
+import android.widget.TextView;
 
 import java.util.ArrayList;
 
-import au.com.tyo.common.ui.ImageViewAutoRefreshed;
 import au.com.tyo.common.ui.ImageViewAutoRefreshed.ImageItem;
 
 public class PreviewBox extends FrameLayout {
@@ -24,6 +24,8 @@ public class PreviewBox extends FrameLayout {
 
     // UI components
     private ImageViewAutoRefreshed imgView;
+
+    private TextView textView;
 
     // Data
     private ArrayList<ImageViewAutoRefreshed.ImageItem> items;
@@ -89,11 +91,19 @@ public class PreviewBox extends FrameLayout {
     protected void onFinishInflate() {
         super.onFinishInflate();
 
-        imgView = (ImageViewAutoRefreshed) this.findViewById(R.layout.preview_box);
+        imgView = (ImageViewAutoRefreshed) this.findViewById(R.id.preview_box_bg_img);
+        //imgView.setScaleType(ImageView.ScaleType.CENTER_CROP );
+
+        textView = (TextView) this.findViewById(R.id.preview_box_title);
+        setTitleResource(R.string.empty_string);
     }
 
-    public void setBackgroundResource(int resId) {
-        this.setBackgroundResource(resId);
+    public void setBackgroudImageResource(int resId) {
+        imgView.setImageResource(resId);
+    }
+
+    public void setTitleResource(int resId) {
+        textView.setText(resId);
     }
 
     /**
