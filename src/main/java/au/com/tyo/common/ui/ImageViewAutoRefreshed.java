@@ -4,6 +4,7 @@ import android.annotation.TargetApi;
 import android.content.Context;
 import android.os.Handler;
 import android.util.AttributeSet;
+import android.util.Log;
 import android.widget.ImageView;
 
 import java.util.ArrayList;
@@ -15,6 +16,8 @@ import au.com.tyo.android.services.ImageDownloader;
  */
 
 public class ImageViewAutoRefreshed extends ImageView {
+
+    private static final String LOG_TAG = "ImageViewAutoRefreshed";
 
     public int NEXT_IMAGE_TIMEOUT = 5000; // 5 seconds;
 
@@ -115,7 +118,12 @@ public class ImageViewAutoRefreshed extends ImageView {
         public void run() {
             ++current;
             current %= images.size();
-            updateImage(current);
+            try {
+                updateImage(current);
+            }
+            catch (Exception ex) {
+                Log.e(LOG_TAG, ex.getMessage());
+            }
 
             if (null != handler)
                 handler.postDelayed(this, timeout);
@@ -143,7 +151,7 @@ public class ImageViewAutoRefreshed extends ImageView {
 
         if (item instanceof String)
             url = (String) item;
-        else (item instanceof ImageItem) {
+        else if (item instanceof ImageItem) {
             ImageItem imageItem = (ImageItem) item;
             url = (imageItem).getUrl();
             to = imageItem.getTimeout() > -1 ? imageItem.getTimeout() : timeout;

@@ -92,6 +92,10 @@ public class PreviewBox extends FrameLayout {
         imgView = (ImageViewAutoRefreshed) this.findViewById(R.layout.preview_box);
     }
 
+    public void setBackgroundResource(int resId) {
+        this.setBackgroundResource(resId);
+    }
+
     /**
      *
      */
