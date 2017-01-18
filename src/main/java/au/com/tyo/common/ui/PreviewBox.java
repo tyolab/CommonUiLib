@@ -13,6 +13,7 @@ import android.widget.FrameLayout;
 import android.widget.TextView;
 
 import java.util.ArrayList;
+import java.util.List;
 
 import au.com.tyo.common.ui.ImageViewAutoRefreshed.ImageItem;
 
@@ -28,7 +29,7 @@ public class PreviewBox extends FrameLayout {
     private TextView textView;
 
     // Data
-    private ArrayList<ImageViewAutoRefreshed.ImageItem> items;
+    private List<ImageViewAutoRefreshed.ImageItem> items;
 
 
     /**
@@ -80,7 +81,13 @@ public class PreviewBox extends FrameLayout {
     }
 
     public void addPreviewItem(ImageItem item) {
+        if (null == items)
+            items = new ArrayList<ImageItem>();
         items.add(item);
+    }
+
+    public void setPreviewItems(List items) {
+        this.items = items;
     }
 
     public ImageItem getCurrentItem() {
@@ -117,7 +124,7 @@ public class PreviewBox extends FrameLayout {
      *
      * @param images
      */
-    public void start(ArrayList images) {
+    public void start(List images) {
         imgView.setImages(images);
 
         try {
