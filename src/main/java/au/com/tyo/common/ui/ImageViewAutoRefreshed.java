@@ -22,7 +22,7 @@ public class ImageViewAutoRefreshed extends ImageView {
     public int NEXT_IMAGE_TIMEOUT = 5000; // 5 seconds;
 
     public static interface ImageItem {
-        String getUrl();
+        String getImageUrl();
         int getTimeout();
     }
 
@@ -153,7 +153,7 @@ public class ImageViewAutoRefreshed extends ImageView {
             url = (String) item;
         else if (item instanceof ImageItem) {
             ImageItem imageItem = (ImageItem) item;
-            url = (imageItem).getUrl();
+            url = (imageItem).getImageUrl();
             to = imageItem.getTimeout() > to ? imageItem.getTimeout() : to;
         }
         else
