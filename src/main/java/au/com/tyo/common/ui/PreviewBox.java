@@ -8,7 +8,6 @@ import android.annotation.TargetApi;
 import android.content.Context;
 import android.util.AttributeSet;
 import android.util.Log;
-import android.view.View;
 import android.widget.FrameLayout;
 import android.widget.TextView;
 
@@ -29,7 +28,7 @@ public class PreviewBox extends FrameLayout {
     private TextView textView;
 
     // Data
-    private List<ImageViewAutoRefreshed.ImageItem> items;
+    private List<ImageItem> items;
 
 
     /**
@@ -76,17 +75,13 @@ public class PreviewBox extends FrameLayout {
         this.setClickable(true);
     }
 
-    public void setOnClickListener(View.OnClickListener listener) {
-        this.setOnClickListener(listener);
-    }
-
     public void addPreviewItem(ImageItem item) {
         if (null == items)
             items = new ArrayList<ImageItem>();
         items.add(item);
     }
 
-    public void setPreviewItems(List items) {
+    public void setPreviewItems(List<ImageItem> items) {
         this.items = items;
     }
 

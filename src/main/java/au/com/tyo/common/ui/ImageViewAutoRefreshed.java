@@ -7,7 +7,7 @@ import android.util.AttributeSet;
 import android.util.Log;
 import android.widget.ImageView;
 
-import java.util.ArrayList;
+import java.util.List;
 
 import au.com.tyo.android.services.ImageDownloader;
 
@@ -26,7 +26,7 @@ public class ImageViewAutoRefreshed extends ImageView {
         int getTimeout();
     }
 
-    private ArrayList images;
+    private List images;
 
 	/**
 	 * index of current showing image
@@ -101,7 +101,7 @@ public class ImageViewAutoRefreshed extends ImageView {
 	 *
 	 * @param images
      */
-	public void setImages(ArrayList images) {
+	public void setImages(List images) {
 		this.images = images;
 	}
 
@@ -116,17 +116,14 @@ public class ImageViewAutoRefreshed extends ImageView {
     private Runnable runnable = new Runnable() {
         @Override
         public void run() {
-            ++current;
-            current %= images.size();
-            try {
-                updateImage(current);
-            }
-            catch (Exception ex) {
-                Log.e(LOG_TAG, ex.getMessage());
-            }
-
-            if (null != handler)
-                handler.postDelayed(this, timeout);
+        ++current;
+        current %= images.size();
+        try {
+            updateImage(current);
+        }
+        catch (Exception ex) {
+            Log.e(LOG_TAG, ex.getMessage());
+        }
         }
     };
 
@@ -137,6 +134,9 @@ public class ImageViewAutoRefreshed extends ImageView {
         if (null != images && images.size() > 0) {
             current = 0;
 
+            if (images.size() > 1) {
+                handler = new Handler();
+            }
             updateImage(current);
         }
     }
@@ -147,24 +147,23 @@ public class ImageViewAutoRefreshed extends ImageView {
         String url;
 
         // timeout
-        int to = timeout > -1 ? timeout : NEXT_IMAGE_TIMEOUT;
+        int to = timeout > NEXT_IMAGE_TIMEOUT ? timeout : NEXT_IMAGE_TIMEOUT;
 
         if (item instanceof String)
             url = (String) item;
         else if (item instanceof ImageItem) {
             ImageItem imageItem = (ImageItem) item;
             url = (imageItem).getUrl();
-            to = imageItem.getTimeout() > -1 ? imageItem.getTimeout() : timeout;
+            to = imageItem.getTimeout() > to ? imageItem.getTimeout() : to;
         }
         else
             throw new Exception("Image item must be a String type or a type implementing interface ImageItem");
 
         imageDownloader.download(url, this);
 
-        if (images.size() > 1) {
-            handler = new Handler();
+
+        if (null != handler)
             handler.postDelayed(runnable, to);
-        }
     }
 
     public void pause() {
