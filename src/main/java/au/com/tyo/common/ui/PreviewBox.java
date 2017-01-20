@@ -20,7 +20,7 @@ public class PreviewBox extends FrameLayout {
 
     private static final String LOG_TAG = "PreviewBox";
 
-    public enum Type {HIGHTLIGHT, CATEGORY};
+    public enum PreviewType { HIGHLIGHT, CATEGORY, CATEGORY_ALL };
 
     // UI components
     private ImageViewAutoRefreshed imgView;
@@ -30,6 +30,7 @@ public class PreviewBox extends FrameLayout {
     // Data
     private List<ImageItem> items;
 
+    private PreviewType type;
 
     /**
      * @param context
@@ -71,8 +72,29 @@ public class PreviewBox extends FrameLayout {
         init();
     }
 
+    public PreviewType getType() {
+        return type;
+    }
+
+    public void setType(PreviewType type) {
+        this.type = type;
+    }
+
     private void init() {
         this.setClickable(true);
+        this.setType(PreviewType.HIGHLIGHT);
+    }
+
+    public boolean isCategoryType() {
+        return type == PreviewType.CATEGORY;
+    }
+
+    public boolean isCategoryAllType() {
+        return type == PreviewType.CATEGORY_ALL;
+    }
+
+    public boolean isHighlightType() {
+        return type == PreviewType.HIGHLIGHT;
     }
 
     public void addPreviewItem(ImageItem item) {
