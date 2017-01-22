@@ -7,6 +7,7 @@ import android.util.AttributeSet;
 import android.util.Log;
 import android.widget.ImageView;
 
+import java.util.ArrayList;
 import java.util.List;
 
 import au.com.tyo.android.services.ImageDownloader;
@@ -93,7 +94,18 @@ public class ImageViewAutoRefreshed extends ImageView {
         return timeout;
     }
 
-    public Object getCurrentItem() {
+    public void addImage(Object item) {
+        if (null == images)
+            images = new ArrayList();
+        images.add(item);
+        current = images.size() - 1;
+        try {
+            updateImage(current);
+        }
+        catch (Exception ex) {}
+    }
+
+    public Object getCurrentImage() {
         return null != images ? images.get(current) : null;
     }
 

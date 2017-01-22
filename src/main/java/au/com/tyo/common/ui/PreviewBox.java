@@ -11,7 +11,6 @@ import android.util.Log;
 import android.widget.FrameLayout;
 import android.widget.TextView;
 
-import java.util.ArrayList;
 import java.util.List;
 
 import au.com.tyo.common.ui.ImageViewAutoRefreshed.ImageItem;
@@ -26,9 +25,6 @@ public class PreviewBox extends FrameLayout {
     private ImageViewAutoRefreshed imgView;
 
     private TextView textView;
-
-    // Data
-    private List<ImageItem> items;
 
     private PreviewType type;
 
@@ -98,17 +94,15 @@ public class PreviewBox extends FrameLayout {
     }
 
     public void addPreviewItem(ImageItem item) {
-        if (null == items)
-            items = new ArrayList<ImageItem>();
-        items.add(item);
+        imgView.addImage(item);
     }
 
     public void setPreviewItems(List<ImageItem> items) {
-        this.items = items;
+        imgView.setImages(items);
     }
 
     public ImageItem getCurrentItem() {
-        return (ImageItem) imgView.getCurrentItem();
+        return (ImageItem) imgView.getCurrentImage();
     }
 
     @Override
@@ -134,16 +128,6 @@ public class PreviewBox extends FrameLayout {
      *
      */
     public void start() {
-        start(items);
-    }
-
-    /**
-     *
-     * @param images
-     */
-    public void start(List images) {
-        imgView.setImages(images);
-
         try {
             imgView.display();
         }

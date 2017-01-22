@@ -1,14 +1,12 @@
 package au.com.tyo.common.ui;
 
 import android.content.Context;
+import android.os.AsyncTask;
 import android.util.AttributeSet;
-import android.view.Gravity;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.FrameLayout;
-import android.widget.ProgressBar;
-import au.com.tyo.common.ui.R;
 
 public class ViewContainerWithProgressBar extends FrameLayout {
 	
@@ -19,6 +17,8 @@ public class ViewContainerWithProgressBar extends FrameLayout {
 	private int viewContainerResId = R.id.view_container;
 	
 	private int progressBarContainerResId = R.id.container_progress_bar;
+
+	private int contentViewResourceId;
 
 	public ViewContainerWithProgressBar(Context context) {
 		super(context);
@@ -52,6 +52,14 @@ public class ViewContainerWithProgressBar extends FrameLayout {
 		this.progressBarContainerResId = progressBarResId;
 	}
 
+	public int getContentViewResourceId() {
+		return contentViewResourceId;
+	}
+
+	public void setContentViewResourceId(int contentViewResourceId) {
+		this.contentViewResourceId = contentViewResourceId;
+	}
+
 	public void inflateFromDefaultLayoutResource() {
         LayoutInflater factory = LayoutInflater.from(this.getContext());
         factory.inflate(R.layout.container_and_progressbar, this);
@@ -76,7 +84,10 @@ public class ViewContainerWithProgressBar extends FrameLayout {
        viewContainer = (ViewGroup) findViewById(viewContainerResId);
         
        progressBarContainer = (View) findViewById(progressBarContainerResId);
-       
+
+        /**
+		 * there were a bit issues with the centering the progress bar
+		 */
        if (null != progressBarContainer) {
 //    	   progressBarContainer.setVisibility(View.GONE);
 //           FrameLayout.LayoutParams params = new FrameLayout.LayoutParams(LayoutParams.MATCH_PARENT, LayoutParams.MATCH_PARENT);
@@ -116,5 +127,65 @@ public class ViewContainerWithProgressBar extends FrameLayout {
 	
 	public void show() {
 		this.setVisibility(VISIBLE);
+	}
+
+	///////////////////////////////////////////////////////////////////////////////////////////////
+	public void initializeChildContentView(int resId, Runnable job) {
+		this.contentViewResourceId = resId;
+
+
+	}
+
+	public void startTask(Runnable job) {
+		new BackgroudTask(job).execute();
+	}
+
+	public interface Worker {
+		Object getResult();
+	}
+
+	public interface Caller {
+		void onPreExecute();
+		void onPostExecute(Object o);
+	}
+
+	public class BackgroudTask extends AsyncTask<Void, Integer, Object> {
+
+		private Caller caller;
+		private Runnable job;
+
+		public BackgroudTask(Runnable job) {
+			this(job, null);
+		}
+
+		public BackgroudTask(Runnable job, Caller caller) {
+			this.caller = caller;
+			this.job = job;
+		}
+
+		@Override
+		protected void onPreExecute() {
+			super.onPreExecute();
+			if (null != caller) caller.onPreExecute();
+		}
+
+		@Override
+		protected void onPostExecute(Object result) {
+			super.onPostExecute(result);
+
+			addContentView(contentViewResourceId);
+
+			hideProgressBar();
+
+			if (null != caller) caller.onPostExecute(result);
+		}
+
+		@Override
+		protected Object doInBackground(Void... params) {
+			job.run();
+
+			if (job instanceof Worker) return ((Worker) job).getResult();
+            return null;
+		}
 	}
 }
