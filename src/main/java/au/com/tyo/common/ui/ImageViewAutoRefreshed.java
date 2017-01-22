@@ -94,7 +94,7 @@ public class ImageViewAutoRefreshed extends ImageView {
     }
 
     public Object getCurrentItem() {
-        return images.get(current);
+        return null != images ? images.get(current) : null;
     }
 
     /**
@@ -158,6 +158,9 @@ public class ImageViewAutoRefreshed extends ImageView {
         }
         else
             throw new Exception("Image item must be a String type or a type implementing interface ImageItem");
+
+        if (null == url)
+            return;
 
         imageDownloader.download(url, this);
 
