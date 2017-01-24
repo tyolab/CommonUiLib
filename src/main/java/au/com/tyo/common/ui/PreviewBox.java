@@ -124,6 +124,10 @@ public class PreviewBox extends FrameLayout {
         textView.setText(resId);
     }
 
+    public void setTitle(CharSequence title) {
+        textView.setText(title);
+    }
+
     /**
      *
      */
