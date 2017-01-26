@@ -22,6 +22,12 @@ public class ImageViewAutoRefreshed extends ImageView {
 
     public int NEXT_IMAGE_TIMEOUT = 5000; // 5 seconds;
 
+    public interface OnImageRefreshStateListener {
+        void onEachRoundFinished();
+    }
+
+    private OnImageRefreshStateListener listener;
+
     public static interface ImageItem {
         String getImageUrl();
         int getTimeout();
@@ -88,15 +94,21 @@ public class ImageViewAutoRefreshed extends ImageView {
     private void init(Context context) {
         images = null;
         imageDownloader = new ImageDownloader(context, "cache");
+        listener = null;
     }
 
     public int getTimeout() {
         return timeout;
     }
 
+    public void setOnImageRefreshStateListener(OnImageRefreshStateListener listener) {
+        this.listener = listener;
+    }
+
     public void addImage(Object item) {
         if (null == images)
             images = new ArrayList();
+
         images.add(item);
         current = images.size() - 1;
         try {
@@ -168,17 +180,22 @@ public class ImageViewAutoRefreshed extends ImageView {
             url = (imageItem).getImageUrl();
             to = imageItem.getTimeout() > to ? imageItem.getTimeout() : to;
         }
-        else
+        else {
+            if (null != listener)
+                listener.onEachRoundFinished();
             throw new Exception("Image item must be a String type or a type implementing interface ImageItem");
+        }
 
         if (null == url)
             return;
 
         imageDownloader.download(url, this);
 
-
         if (null != handler)
             handler.postDelayed(runnable, to);
+
+        if (null != listener && current >= (images.size() - 1))
+            listener.onEachRoundFinished();
     }
 
     public void pause() {

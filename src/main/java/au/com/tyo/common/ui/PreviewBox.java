@@ -19,14 +19,10 @@ public class PreviewBox extends FrameLayout {
 
     private static final String LOG_TAG = "PreviewBox";
 
-    public enum PreviewType { HIGHLIGHT, CATEGORY, CATEGORY_ALL };
-
     // UI components
     private ImageViewAutoRefreshed imgView;
 
     private TextView textView;
-
-    private PreviewType type;
 
     /**
      * @param context
@@ -68,30 +64,11 @@ public class PreviewBox extends FrameLayout {
         init();
     }
 
-    public PreviewType getType() {
-        return type;
-    }
-
-    public void setType(PreviewType type) {
-        this.type = type;
-    }
-
     private void init() {
         this.setClickable(true);
-        this.setType(PreviewType.HIGHLIGHT);
     }
 
-    public boolean isCategoryType() {
-        return type == PreviewType.CATEGORY;
-    }
-
-    public boolean isCategoryAllType() {
-        return type == PreviewType.CATEGORY_ALL;
-    }
-
-    public boolean isHighlightType() {
-        return type == PreviewType.HIGHLIGHT;
-    }
+    public void addPreviewItem(String url) { imgView.addImage(url); }
 
     public void addPreviewItem(ImageItem item) {
         imgView.addImage(item);
@@ -116,7 +93,7 @@ public class PreviewBox extends FrameLayout {
         setTitleResource(R.string.empty_string);
     }
 
-    public void setBackgroudImageResource(int resId) {
+    public void setBackgroundImageResource(int resId) {
         imgView.setImageResource(resId);
     }
 
@@ -126,6 +103,10 @@ public class PreviewBox extends FrameLayout {
 
     public void setTitle(CharSequence title) {
         textView.setText(title);
+    }
+
+    public void setAlpha(float f) {
+        imgView.setAlpha(f);
     }
 
     /**
@@ -142,5 +123,9 @@ public class PreviewBox extends FrameLayout {
 
     public void stop() {
         imgView.pause();
+    }
+
+    public void setEachPreviewRoundFinishedListener(ImageViewAutoRefreshed.OnImageRefreshStateListener listener) {
+        imgView.setOnImageRefreshStateListener(listener);
     }
 }
