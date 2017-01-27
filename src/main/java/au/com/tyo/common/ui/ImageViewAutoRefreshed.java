@@ -163,6 +163,10 @@ public class ImageViewAutoRefreshed extends ImageView {
             }
             updateImage(current);
         }
+        else {
+            if (null != listener)
+                listener.onEachRoundFinished();
+        }
     }
 
     private void updateImage(int current) throws Exception {
