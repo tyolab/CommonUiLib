@@ -74,7 +74,7 @@ public class PreviewBox extends FrameLayout {
         imgView.addImage(item);
     }
 
-    public void setPreviewItems(List<ImageItem> items) {
+    public void setPreviewItems(List items) {
         imgView.setImages(items);
     }
 
