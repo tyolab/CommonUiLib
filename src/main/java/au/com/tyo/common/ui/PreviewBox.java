@@ -78,6 +78,10 @@ public class PreviewBox extends FrameLayout {
         imgView.setImages(items);
     }
 
+    public void setPreviewItemQuality(int quality) {
+        imgView.setImageQuality(quality);
+    }
+
     public ImageItem getCurrentItem() {
         return (ImageItem) imgView.getCurrentImage();
     }

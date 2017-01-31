@@ -101,6 +101,10 @@ public class ImageViewAutoRefreshed extends ImageView {
         return timeout;
     }
 
+    public void setImageQuality(int quality) {
+        imageDownloader.setQuality(quality);
+    }
+
     public void setOnImageRefreshStateListener(OnImageRefreshStateListener listener) {
         this.listener = listener;
     }
