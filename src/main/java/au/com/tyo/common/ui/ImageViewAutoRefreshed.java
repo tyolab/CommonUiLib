@@ -93,7 +93,7 @@ public class ImageViewAutoRefreshed extends ImageView {
 
     private void init(Context context) {
         images = null;
-        imageDownloader = new ImageDownloader(context, "cache");
+        imageDownloader = new ImageDownloader(context, "images");
         listener = null;
     }
 
