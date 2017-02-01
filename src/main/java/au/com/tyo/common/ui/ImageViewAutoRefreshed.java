@@ -97,6 +97,10 @@ public class ImageViewAutoRefreshed extends ImageView {
         listener = null;
     }
 
+    public ImageDownloader getImageDownloader() {
+        return imageDownloader;
+    }
+
     public int getTimeout() {
         return timeout;
     }

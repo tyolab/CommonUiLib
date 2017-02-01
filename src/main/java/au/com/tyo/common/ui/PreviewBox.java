@@ -8,11 +8,13 @@ import android.annotation.TargetApi;
 import android.content.Context;
 import android.util.AttributeSet;
 import android.util.Log;
+import android.view.View;
 import android.widget.FrameLayout;
 import android.widget.TextView;
 
 import java.util.List;
 
+import au.com.tyo.android.services.ImageDownloader;
 import au.com.tyo.common.ui.ImageViewAutoRefreshed.ImageItem;
 
 public class PreviewBox extends FrameLayout {
@@ -23,6 +25,8 @@ public class PreviewBox extends FrameLayout {
     private ImageViewAutoRefreshed imgView;
 
     private TextView textView;
+
+    private View bgView;
 
     /**
      * @param context
@@ -95,6 +99,12 @@ public class PreviewBox extends FrameLayout {
 
         textView = (TextView) this.findViewById(R.id.preview_box_title);
         setTitleResource(R.string.empty_string);
+
+        bgView = this.findViewById(R.id.preview_box_bg);
+    }
+
+    public void setInnerBackgrundResource(int resId) {
+        bgView.setBackgroundResource(resId);
     }
 
     public void setBackgroundImageResource(int resId) {
@@ -131,5 +141,9 @@ public class PreviewBox extends FrameLayout {
 
     public void setEachPreviewRoundFinishedListener(ImageViewAutoRefreshed.OnImageRefreshStateListener listener) {
         imgView.setOnImageRefreshStateListener(listener);
+    }
+
+    public ImageDownloader getImageDownloader() {
+        return imgView.getImageDownloader();
     }
 }

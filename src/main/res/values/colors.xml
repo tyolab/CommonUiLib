@@ -51,6 +51,7 @@
     <color name="yellow">#EEFF41</color>
     <color name="default_background">#3d3d3d</color>
     <color name="sun_opaque">#AAFF8731</color>
+    <color name="sun_light">#ffa767</color>
 
     <color name="lb_tv_white">#FFCCCCCC</color>
 </resources>
