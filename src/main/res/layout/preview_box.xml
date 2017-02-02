@@ -14,6 +14,17 @@
         android:id="@+id/preview_box_bg"
         >
 
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="@string/preview"
+            android:layout_gravity="center_horizontal|center_vertical"
+            android:textColor="@color/lb_tv_white"
+            android:id="@+id/preview_box_alt"
+            android:focusable="false"
+            android:clickable="false"
+            />
+
         <au.com.tyo.common.ui.ImageViewAutoRefreshed
             android:layout_width="match_parent"
             android:layout_height="match_parent"

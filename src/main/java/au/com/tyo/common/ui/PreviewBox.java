@@ -8,7 +8,6 @@ import android.annotation.TargetApi;
 import android.content.Context;
 import android.util.AttributeSet;
 import android.util.Log;
-import android.view.View;
 import android.widget.FrameLayout;
 import android.widget.TextView;
 
@@ -26,7 +25,9 @@ public class PreviewBox extends FrameLayout {
 
     private TextView textView;
 
-    private View bgView;
+    private TextView textAlt;
+
+    private FrameLayout bgView;
 
     /**
      * @param context
@@ -94,13 +95,23 @@ public class PreviewBox extends FrameLayout {
     protected void onFinishInflate() {
         super.onFinishInflate();
 
+        bgView = (FrameLayout) this.findViewById(R.id.preview_box_bg);
+
+        textAlt = (TextView) this.findViewById(R.id.preview_box_alt);
+        if (null == textAlt) {
+            textAlt = new TextView(this.getContext());
+            bgView.addView(textAlt, 0);
+        }
+
         imgView = (ImageViewAutoRefreshed) this.findViewById(R.id.preview_box_bg_img);
         //imgView.setScaleType(ImageView.ScaleType.CENTER_CROP );
 
         textView = (TextView) this.findViewById(R.id.preview_box_title);
+        if (null == textView) {
+            textView = new TextView(this.getContext());
+            bgView.addView(textView);
+        }
         setTitleResource(R.string.empty_string);
-
-        bgView = this.findViewById(R.id.preview_box_bg);
     }
 
     public void setInnerBackgrundResource(int resId) {
@@ -118,6 +129,8 @@ public class PreviewBox extends FrameLayout {
     public void setTitle(CharSequence title) {
         textView.setText(title);
     }
+
+    public void setAlt(CharSequence alt) { textAlt.setText(alt); }
 
     public void setAlpha(float f) {
         imgView.setAlpha(f);
