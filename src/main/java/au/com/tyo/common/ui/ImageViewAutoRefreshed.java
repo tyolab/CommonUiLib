@@ -31,6 +31,7 @@ public class ImageViewAutoRefreshed extends ImageView {
     public static interface ImageItem {
         String getImageUrl();
         int getTimeout();
+        CharSequence getAlt();
     }
 
     private List images;

@@ -77,6 +77,9 @@ public class PreviewBox extends FrameLayout {
 
     public void addPreviewItem(ImageItem item) {
         imgView.addImage(item);
+        CharSequence alt = item.getAlt();
+        if (null != alt)
+            setAlt(alt);
     }
 
     public void setPreviewItems(List items) {
@@ -114,7 +117,7 @@ public class PreviewBox extends FrameLayout {
         setTitleResource(R.string.empty_string);
     }
 
-    public void setInnerBackgrundResource(int resId) {
+    public void setInnerBackgroundResource(int resId) {
         bgView.setBackgroundResource(resId);
     }
 
