@@ -18,6 +18,10 @@ import au.com.tyo.common.ui.ImageViewAutoRefreshed.ImageItem;
 
 public class PreviewBox extends FrameLayout {
 
+    public interface PreviewItem extends ImageItem {
+
+    }
+
     private static final String LOG_TAG = "PreviewBox";
 
     // UI components
@@ -75,7 +79,7 @@ public class PreviewBox extends FrameLayout {
 
     public void addPreviewItem(String url) { imgView.addImage(url); }
 
-    public void addPreviewItem(ImageItem item) {
+    public void addPreviewItem(PreviewItem item) {
         imgView.addImage(item);
         CharSequence alt = item.getAlt();
         if (null != alt)
@@ -90,8 +94,8 @@ public class PreviewBox extends FrameLayout {
         imgView.setImageQuality(quality);
     }
 
-    public ImageItem getCurrentItem() {
-        return (ImageItem) imgView.getCurrentImage();
+    public PreviewItem getCurrentItem() {
+        return (PreviewItem) imgView.getCurrentImage();
     }
 
     @Override
