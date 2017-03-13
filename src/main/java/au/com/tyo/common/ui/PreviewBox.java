@@ -25,7 +25,7 @@ public class PreviewBox extends FrameLayout {
     private static final String LOG_TAG = "PreviewBox";
 
     // UI components
-    private ImageViewAutoRefreshed imgView;
+    private ImageViewAutoRefreshed imageRefresher;
 
     private TextView textView;
 
@@ -39,7 +39,7 @@ public class PreviewBox extends FrameLayout {
     public PreviewBox(Context context) {
         super(context);
 
-        init();
+        init(context);
     }
 
     /**
@@ -48,7 +48,7 @@ public class PreviewBox extends FrameLayout {
      */
     public PreviewBox(Context context, AttributeSet attrs) {
         super(context, attrs);
-        init();
+        init(context);
     }
 
     /**
@@ -58,7 +58,7 @@ public class PreviewBox extends FrameLayout {
      */
     public PreviewBox(Context context, AttributeSet attrs, int defStyleAttr) {
         super(context, attrs, defStyleAttr);
-        init();
+        init(context);
     }
 
     /**
@@ -70,32 +70,33 @@ public class PreviewBox extends FrameLayout {
     @TargetApi(21)
     public PreviewBox(Context context, AttributeSet attrs, int defStyleAttr, int defStyleRes) {
         super(context, attrs, defStyleAttr, defStyleRes);
-        init();
+        init(context);
     }
 
-    private void init() {
+    private void init(Context context) {
+        imageRefresher = new ImageViewAutoRefreshed(context);
         this.setClickable(true);
     }
 
-    public void addPreviewItem(String url) { imgView.addImage(url); }
+    public void addPreviewItem(String url) { imageRefresher.addImage(url); }
 
     public void addPreviewItem(PreviewItem item) {
-        imgView.addImage(item);
+        imageRefresher.addImage(item);
         CharSequence alt = item.getAlt();
         if (null != alt)
             setAlt(alt);
     }
 
     public void setPreviewItems(List items) {
-        imgView.setImages(items);
+        imageRefresher.setImages(items);
     }
 
     public void setPreviewItemQuality(int quality) {
-        imgView.setImageQuality(quality);
+        imageRefresher.setImageQuality(quality);
     }
 
     public PreviewItem getCurrentItem() {
-        return (PreviewItem) imgView.getCurrentImage();
+        return (PreviewItem) imageRefresher.getCurrentImage();
     }
 
     @Override
@@ -110,8 +111,8 @@ public class PreviewBox extends FrameLayout {
             bgView.addView(textAlt, 0);
         }
 
-        imgView = (ImageViewAutoRefreshed) this.findViewById(R.id.preview_box_bg_img);
-        //imgView.setScaleType(ImageView.ScaleType.CENTER_CROP );
+        imageRefresher.setImageViewHolder((ImageViewHolder) this.findViewById(R.id.preview_box_bg_img));
+        //imageRefresher.setScaleType(ImageView.ScaleType.CENTER_CROP );
 
         textView = (TextView) this.findViewById(R.id.preview_box_title);
         if (null == textView) {
@@ -126,7 +127,7 @@ public class PreviewBox extends FrameLayout {
     }
 
     public void setBackgroundImageResource(int resId) {
-        imgView.setImageResource(resId);
+        imageRefresher.getImageViewHolder().getImageView().setImageResource(resId);
     }
 
     public void setTitleResource(int resId) {
@@ -140,7 +141,7 @@ public class PreviewBox extends FrameLayout {
     public void setAlt(CharSequence alt) { textAlt.setText(alt); }
 
     public void setAlpha(float f) {
-        imgView.setAlpha(f);
+        imageRefresher.getImageViewHolder().getImageView().setAlpha(f);
     }
 
     /**
@@ -148,7 +149,7 @@ public class PreviewBox extends FrameLayout {
      */
     public void start() {
         try {
-            imgView.display();
+            imageRefresher.display();
         }
         catch (Exception ex) {
             Log.e(LOG_TAG, ex.getMessage());
@@ -156,14 +157,14 @@ public class PreviewBox extends FrameLayout {
     }
 
     public void stop() {
-        imgView.pause();
+        imageRefresher.pause();
     }
 
     public void setEachPreviewRoundFinishedListener(ImageViewAutoRefreshed.OnImageRefreshStateListener listener) {
-        imgView.setOnImageRefreshStateListener(listener);
+        imageRefresher.setOnImageRefreshStateListener(listener);
     }
 
     public ImageDownloader getImageDownloader() {
-        return imgView.getImageDownloader();
+        return imageRefresher.getImageDownloader();
     }
 }

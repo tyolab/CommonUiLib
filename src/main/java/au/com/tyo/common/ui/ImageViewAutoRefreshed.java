@@ -1,11 +1,8 @@
 package au.com.tyo.common.ui;
 
-import android.annotation.TargetApi;
 import android.content.Context;
 import android.os.Handler;
-import android.util.AttributeSet;
 import android.util.Log;
-import android.widget.ImageView;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -16,11 +13,13 @@ import au.com.tyo.android.services.ImageDownloader;
  * Created by "Eric Tang (dev@tyo.com.au)" on 14/1/17.
  */
 
-public class ImageViewAutoRefreshed extends ImageView {
+public class ImageViewAutoRefreshed {
 
     private static final String LOG_TAG = "ImageViewAutoRefreshed";
 
     public int NEXT_IMAGE_TIMEOUT = 5000; // 5 seconds;
+
+    private ImageViewHolder imageViewHolder;
 
     public interface OnImageRefreshStateListener {
         void onEachRoundFinished();
@@ -53,49 +52,22 @@ public class ImageViewAutoRefreshed extends ImageView {
 
     private Handler handler;
 
-    /**
-	 * @param context
-	 */
-	public ImageViewAutoRefreshed(Context context) {
-		super(context);
+    public ImageViewAutoRefreshed(Context context) {
         init(context);
-	}
-
-    /**
-	 * @param context
-	 * @param attrs
-	 */
-	public ImageViewAutoRefreshed(Context context, AttributeSet attrs) {
-		super(context, attrs);
-        init(context);
-
-	}
-	/**
-	 * @param context
-	 * @param attrs
-	 * @param defStyleAttr
-	 */
-	public ImageViewAutoRefreshed(Context context, AttributeSet attrs, int defStyleAttr) {
-		super(context, attrs, defStyleAttr);
-        init(context);
-	}	
-
-	/**
-	 * @param context
-	 * @param attrs
-	 * @param defStyleAttr
-	 * @param defStyleRes
-	 */
-    @TargetApi(21)
-	public ImageViewAutoRefreshed(Context context, AttributeSet attrs, int defStyleAttr, int defStyleRes) {
-		super(context, attrs, defStyleAttr, defStyleRes);
-		init(context);
-	}
+    }
 
     private void init(Context context) {
         images = null;
         imageDownloader = new ImageDownloader(context, "images");
         listener = null;
+    }
+
+    public ImageViewHolder getImageViewHolder() {
+        return imageViewHolder;
+    }
+
+    public void setImageViewHolder(ImageViewHolder imageViewHolder) {
+        this.imageViewHolder = imageViewHolder;
     }
 
     public ImageDownloader getImageDownloader() {
@@ -202,7 +174,7 @@ public class ImageViewAutoRefreshed extends ImageView {
         if (null == url)
             return;
 
-        imageDownloader.download(url, this);
+        imageDownloader.download(url, imageViewHolder.getImageView());
 
         if (null != handler)
             handler.postDelayed(runnable, to);
