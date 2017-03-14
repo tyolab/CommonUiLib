@@ -78,7 +78,9 @@ public class PreviewBox extends FrameLayout {
         this.setClickable(true);
     }
 
-    public void addPreviewItem(String url) { imageRefresher.addImage(url); }
+    public void addPreviewItem(String url) {
+        imageRefresher.addImage(url);
+    }
 
     public void addPreviewItem(PreviewItem item) {
         imageRefresher.addImage(item);
@@ -138,7 +140,9 @@ public class PreviewBox extends FrameLayout {
         textView.setText(title);
     }
 
-    public void setAlt(CharSequence alt) { textAlt.setText(alt); }
+    public void setAlt(CharSequence alt) {
+        textAlt.setText(alt);
+    }
 
     public void setAlpha(float f) {
         imageRefresher.getImageViewHolder().getImageView().setAlpha(f);
@@ -150,8 +154,7 @@ public class PreviewBox extends FrameLayout {
     public void start() {
         try {
             imageRefresher.display();
-        }
-        catch (Exception ex) {
+        } catch (Exception ex) {
             Log.e(LOG_TAG, ex.getMessage());
         }
     }
@@ -167,4 +170,9 @@ public class PreviewBox extends FrameLayout {
     public ImageDownloader getImageDownloader() {
         return imageRefresher.getImageDownloader();
     }
+
+    public ImageViewHolder getImageViewHolder() {
+        return imageRefresher.getImageViewHolder();
+    }
+
 }
