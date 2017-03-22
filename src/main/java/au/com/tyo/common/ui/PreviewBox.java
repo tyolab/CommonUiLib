@@ -8,6 +8,7 @@ import android.annotation.TargetApi;
 import android.content.Context;
 import android.util.AttributeSet;
 import android.util.Log;
+import android.view.View;
 import android.widget.FrameLayout;
 import android.widget.TextView;
 
@@ -121,7 +122,7 @@ public class PreviewBox extends FrameLayout {
             textView = new TextView(this.getContext());
             bgView.addView(textView);
         }
-        setTitleResource(R.string.empty_string);
+        //setTitleResource(R.string.empty_string);
     }
 
     public void setInnerBackgroundResource(int resId) {
@@ -138,6 +139,16 @@ public class PreviewBox extends FrameLayout {
 
     public void setTitle(CharSequence title) {
         textView.setText(title);
+    }
+
+    public void showTitle(boolean show) {
+        if (null != textView) {
+            if (show)
+                textView.setVisibility(View.VISIBLE);
+            else
+                textView.setVisibility(View.GONE);
+        }
+
     }
 
     public void setAlt(CharSequence alt) {
