@@ -11,7 +11,7 @@
     >
 	<!-- 
     <ImageView
-        android:id="@+id/itl_image_view"
+        android:name="@+name/itl_image_view"
 	    android:layout_width="@dimen/image_text_list_cell_width"
 	    android:layout_height="@dimen/image_text_list_cell_height"
 	    android:gravity="left|center_vertical"
@@ -20,7 +20,7 @@
      -->
      
     <TextView
-        android:id="@android:id/text1"
+        android:name="@android:name/text1"
         style="?attr/search_result_text_title_style"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
@@ -32,13 +32,13 @@
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:layout_alignParentBottom="true"
-        android:layout_below="@android:id/text1"
+        android:layout_below="@android:name/text1"
         android:paddingTop="@dimen/search_snippet_text_padding_top"
         android:paddingBottom="@dimen/search_snippet_text_padding_bottom"
         android:gravity="center_vertical|center_horizontal" >
         
 	    <ProgressBar
-	       android:id="@+id/snippet_progress_bar"
+	       android:name="@+name/snippet_progress_bar"
 	       style="?android:attr/progressBarStyle"
 	       android:layout_width="wrap_content"
 	       android:layout_height="wrap_content"
@@ -47,7 +47,7 @@
 	       />
 	    
 	    <TextView
-	        android:id="@+id/tv_snippet"
+	        android:name="@+name/tv_snippet"
 	        android:layout_width="match_parent"
 	        android:layout_height="wrap_content"
 	        android:gravity="left|top"

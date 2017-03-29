@@ -6,7 +6,7 @@
     >
     
       <FrameLayout
-        android:id="@+id/container_progress_bar"
+        android:name="@+name/container_progress_bar"
         android:layout_width="match_parent"
         android:layout_height="match_parent" 
        	android:visibility="gone"
@@ -24,7 +24,7 @@
 
          
 	<FrameLayout
-	    android:id="@+id/view_container" 
+	    android:name="@+name/view_container"
 	    android:layout_width="match_parent"
 		android:layout_height="match_parent"
 	    />

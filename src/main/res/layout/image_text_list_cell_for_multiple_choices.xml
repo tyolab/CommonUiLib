@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="utf-8"?><RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    android:id="@+id/image_text_list_item"
+    android:name="@+name/image_text_list_item"
     android:layout_width="wrap_content"
     android:layout_height="wrap_content"
     android:gravity="left|center_vertical"
@@ -14,7 +14,7 @@
     >
 
     <ImageView
-        android:id="@+id/itl_image_view"
+        android:name="@+name/itl_image_view"
         android:layout_width="@dimen/image_text_list_cell_width"
         android:layout_height="@dimen/image_text_list_cell_height"
         android:layout_alignParentLeft="true"
@@ -22,7 +22,7 @@
         android:scaleType="centerCrop" />
     
     <CheckBox
-        android:id="@+id/checkbox1"
+        android:name="@+name/checkbox1"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_alignParentRight="true"
@@ -30,12 +30,12 @@
         />    
     
     <TextView
-        android:id="@android:id/text1"
+        android:name="@android:name/text1"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_centerVertical="true"
-        android:layout_toLeftOf="@id/checkbox1"
-        android:layout_toRightOf="@id/itl_image_view"
+        android:layout_toLeftOf="@name/checkbox1"
+        android:layout_toRightOf="@name/itl_image_view"
         android:gravity="left|center_vertical"
         android:paddingLeft="3dp" 
         style="@style/MediumText"
