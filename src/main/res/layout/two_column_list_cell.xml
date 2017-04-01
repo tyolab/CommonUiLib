@@ -13,7 +13,7 @@
     >
 
     <TextView
-        android:name="@android:name/text1"
+        android:id="@android:id/text1"
         android:layout_width="0dp"
 	    android:layout_height="match_parent"
 	    android:layout_weight="1.1"
@@ -21,7 +21,7 @@
 		 />
     
     <TextView
-        android:name="@android:name/text2"
+        android:id="@android:id/text2"
         android:layout_width="0dp"
         android:layout_height="match_parent"
         android:layout_weight="0.9"

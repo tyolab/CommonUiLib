@@ -2,7 +2,7 @@
 <au.com.tyo.common.ui.PreviewBox xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:name="@+name/preview_box"
+    android:id="@+id/preview_box"
     android:focusable="true"
     android:clickable="true"
     android:focusableInTouchMode="true"
@@ -11,7 +11,7 @@
     <FrameLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:name="@+name/preview_box_bg"
+        android:id="@+id/preview_box_bg"
         >
 
         <TextView
@@ -20,7 +20,7 @@
             android:text="@string/empty_string"
             android:layout_gravity="center_horizontal|center_vertical"
             android:textColor="@color/lb_tv_white"
-            android:name="@+name/preview_box_alt"
+            android:id="@+id/preview_box_alt"
             android:focusable="false"
             android:clickable="false"
             />
@@ -29,7 +29,7 @@
             android:layout_width="match_parent"
             android:layout_height="match_parent"
             android:scaleType = "centerCrop"
-            android:name="@+name/preview_box_bg_img"
+            android:id="@+id/preview_box_bg_img"
             android:focusable="false"
             android:clickable="false"
             />
@@ -40,7 +40,7 @@
             android:text="@string/empty_string"
             android:layout_gravity="center_horizontal|center_vertical"
             android:textColor="@color/lb_tv_white"
-            android:name="@+name/preview_box_title"
+            android:id="@+id/preview_box_title"
             android:focusable="false"
             android:clickable="false"
             />
