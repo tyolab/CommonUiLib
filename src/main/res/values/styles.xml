@@ -62,7 +62,7 @@
         <item name="android:textColor">@color/black</item>
     </style>
     
-    <style name="CommonTheme.Light" parent="android:Theme"/>
+    <style name="CommonTheme.Light" parent="Theme.AppCompat"/>
     
     <style name="CommonTheme.Light.Pale">
         
@@ -124,7 +124,7 @@
     	<item name="searchBarBackground">@drawable/searchbar_bg_light</item>
     </style>
     
-    <style name="CommonTheme.Dark" parent="android:Theme" />
+    <style name="CommonTheme.Dark" parent="Theme.AppCompat" />
         
     <style name="CommonTheme.Dark.Night">
         

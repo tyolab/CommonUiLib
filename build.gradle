@@ -19,4 +19,7 @@ android {
 
 dependencies {
     compile project(':CommonAndroid')
+
+    compile 'com.android.support:support-v4:25.2.0'
+    compile 'com.android.support:appcompat-v7:25.2.0'
 }
