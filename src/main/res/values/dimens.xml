@@ -88,5 +88,6 @@
 	<dimen name="search_result_list_padding_left">5dp</dimen>
 	<dimen name="search_result_list_padding_right">2dp</dimen>
 	<dimen name="search_result_list_padding_top">10dp</dimen>
-	<dimen name="search_result_list_padding_bottom">10dp</dimen>    
+	<dimen name="search_result_list_padding_bottom">10dp</dimen>
+    <dimen name="preview_box_text_size">24sp</dimen>
 </resources>

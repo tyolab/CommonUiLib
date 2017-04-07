@@ -84,10 +84,14 @@ public class PreviewBox extends FrameLayout {
     }
 
     public void addPreviewItem(PreviewItem item) {
-        imageRefresher.addImage(item);
+        addPreviewObject(item);
         CharSequence alt = item.getAlt();
         if (null != alt)
             setAlt(alt);
+    }
+
+    public void addPreviewObject(Object item) {
+        imageRefresher.addImage(item);
     }
 
     public void setPreviewItems(List items) {

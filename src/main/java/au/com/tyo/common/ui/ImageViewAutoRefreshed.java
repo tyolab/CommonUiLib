@@ -1,6 +1,7 @@
 package au.com.tyo.common.ui;
 
 import android.content.Context;
+import android.graphics.drawable.Drawable;
 import android.os.Handler;
 import android.util.Log;
 
@@ -158,23 +159,26 @@ public class ImageViewAutoRefreshed {
         // timeout
         int to = timeout > NEXT_IMAGE_TIMEOUT ? timeout : NEXT_IMAGE_TIMEOUT;
 
-        if (item instanceof String)
-            url = (String) item;
-        else if (item instanceof ImageItem) {
-            ImageItem imageItem = (ImageItem) item;
-            url = (imageItem).getImageUrl();
-            to = imageItem.getTimeout() > to ? imageItem.getTimeout() : to;
-        }
+        if (item instanceof Drawable)
+            imageViewHolder.getImageView().setImageDrawable((Drawable) item);
         else {
-            if (null != listener)
-                listener.onEachRoundFinished();
-            throw new Exception("Image item must be a String type or a type implementing interface ImageItem");
+            if (item instanceof String)
+                url = (String) item;
+            else if (item instanceof ImageItem) {
+                ImageItem imageItem = (ImageItem) item;
+                url = (imageItem).getImageUrl();
+                to = imageItem.getTimeout() > to ? imageItem.getTimeout() : to;
+            } else {
+                if (null != listener)
+                    listener.onEachRoundFinished();
+                throw new Exception("Image item must be a String type or a type implementing interface ImageItem");
+            }
+
+            if (null == url)
+                return;
+
+            imageDownloader.download(url, imageViewHolder.getImageView());
         }
-
-        if (null == url)
-            return;
-
-        imageDownloader.download(url, imageViewHolder.getImageView());
 
         if (null != handler)
             handler.postDelayed(runnable, to);
