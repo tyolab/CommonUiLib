@@ -12,7 +12,6 @@ import android.view.LayoutInflater;
 import android.view.ViewGroup;
 import android.widget.AbsListView;
 import android.widget.AbsListView.OnScrollListener;
-import android.widget.FrameLayout;
 import android.widget.ListAdapter;
 import android.widget.ListView;
 import android.widget.RelativeLayout;
@@ -94,9 +93,9 @@ public class CommonListView extends RelativeLayout implements OnScrollListener {
 //      list = (ListView) findViewById(R.id.common_list_view);
       
 //		list = new ListView(context);
-		FrameLayout.LayoutParams params = new FrameLayout.LayoutParams(LayoutParams.MATCH_PARENT, LayoutParams.MATCH_PARENT);
+//		FrameLayout.LayoutParams params = new FrameLayout.LayoutParams(LayoutParams.MATCH_PARENT, LayoutParams.MATCH_PARENT);
 //		params.gravity = Gravity.CENTER_HORIZONTAL;	
-		list.setLayoutParams(params);  
+//		list.setLayoutParams(params);
 //		list.setOnTouchListener(new View.OnTouchListener() {
 //			 
 //		    public boolean onTouch(View v, MotionEvent event) {

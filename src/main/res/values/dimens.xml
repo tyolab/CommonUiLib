@@ -90,4 +90,8 @@
 	<dimen name="search_result_list_padding_top">10dp</dimen>
 	<dimen name="search_result_list_padding_bottom">10dp</dimen>
     <dimen name="preview_box_text_size">24sp</dimen>
+
+	<!-- Preview Box -->
+	<dimen name="preview_box_height">240px</dimen>
+	<dimen name="preview_box_width">320px</dimen>
 </resources>
