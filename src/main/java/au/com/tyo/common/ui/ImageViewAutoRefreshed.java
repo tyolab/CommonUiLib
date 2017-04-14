@@ -5,6 +5,8 @@ import android.graphics.drawable.Drawable;
 import android.os.Handler;
 import android.util.Log;
 
+import com.bumptech.glide.Glide;
+
 import java.util.ArrayList;
 import java.util.List;
 
@@ -21,6 +23,10 @@ public class ImageViewAutoRefreshed {
     public int NEXT_IMAGE_TIMEOUT = 5000; // 5 seconds;
 
     private ImageViewHolder imageViewHolder;
+
+    private boolean useGlide = true;
+
+    private Drawable defaultImage;
 
     public interface OnImageRefreshStateListener {
         void onEachRoundFinished();
@@ -61,6 +67,7 @@ public class ImageViewAutoRefreshed {
         images = null;
         imageDownloader = new ImageDownloader(context, "images");
         listener = null;
+        defaultImage = null;
     }
 
     public ImageViewHolder getImageViewHolder() {
@@ -177,7 +184,15 @@ public class ImageViewAutoRefreshed {
             if (null == url)
                 return;
 
-            imageDownloader.download(url, imageViewHolder.getImageView());
+            if (useGlide) {
+                Glide.with(imageViewHolder.getImageView().getContext())
+                        .load(url)
+                        .centerCrop()
+                        .error(defaultImage)
+                        .into(imageViewHolder.getImageView());
+            }
+            else
+                imageDownloader.download(url, imageViewHolder.getImageView());
         }
 
         if (null != handler)
@@ -194,4 +209,6 @@ public class ImageViewAutoRefreshed {
     public int getCurrentImageIndex() {
         return current;
     }
+
+
 }
