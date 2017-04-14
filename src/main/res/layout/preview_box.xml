@@ -3,9 +3,8 @@
     android:layout_width="@dimen/preview_box_width"
     android:layout_height="@dimen/preview_box_height"
     android:id="@+id/preview_box"
-    android:focusable="true"
-    android:clickable="true"
-    android:focusableInTouchMode="true"
+    android:focusable="false"
+    android:clickable="false"
     android:gravity="center"
     >
 
