@@ -63,5 +63,9 @@
 
 		<attr name="delayMillis" format="integer" />
 		
-	</declare-styleable> 
+	</declare-styleable>
+
+	<declare-styleable name="PreviewBox">
+		<attr name="useGlide" format="boolean"/>
+	</declare-styleable>
 </resources>

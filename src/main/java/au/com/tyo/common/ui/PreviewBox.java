@@ -4,8 +4,8 @@ package au.com.tyo.common.ui;
  * Created by "Eric Tang (dev@tyo.com.au)" on 14/1/17.
  */
 
-import android.annotation.TargetApi;
 import android.content.Context;
+import android.content.res.TypedArray;
 import android.util.AttributeSet;
 import android.util.Log;
 import android.view.View;
@@ -34,13 +34,15 @@ public class PreviewBox extends FrameLayout {
 
     private FrameLayout bgView;
 
+    private boolean useGlide;
+
     /**
      * @param context
      */
     public PreviewBox(Context context) {
         super(context);
 
-        init(context);
+        init(context, null);
     }
 
     /**
@@ -49,7 +51,7 @@ public class PreviewBox extends FrameLayout {
      */
     public PreviewBox(Context context, AttributeSet attrs) {
         super(context, attrs);
-        init(context);
+        init(context, attrs);
     }
 
     /**
@@ -59,24 +61,21 @@ public class PreviewBox extends FrameLayout {
      */
     public PreviewBox(Context context, AttributeSet attrs, int defStyleAttr) {
         super(context, attrs, defStyleAttr);
-        init(context);
+        init(context, attrs);
     }
 
-    /**
-     * @param context
-     * @param attrs
-     * @param defStyleAttr
-     * @param defStyleRes
-     */
-    @TargetApi(21)
-    public PreviewBox(Context context, AttributeSet attrs, int defStyleAttr, int defStyleRes) {
-        super(context, attrs, defStyleAttr, defStyleRes);
-        init(context);
-    }
-
-    private void init(Context context) {
+    private void init(Context context, AttributeSet attrs) {
         imageRefresher = new ImageViewAutoRefreshed(context);
         this.setClickable(true);
+
+        if (null != attrs) {
+            TypedArray ta = context.obtainStyledAttributes(attrs, R.styleable.PreviewBox, 0, 0);
+            try {
+                useGlide = ta.getBoolean(R.styleable.PreviewBox_useGlide, true);
+            } finally {
+                ta.recycle();
+            }
+        }
     }
 
     public void addPreviewItem(String url) {
@@ -119,6 +118,7 @@ public class PreviewBox extends FrameLayout {
         }
 
         imageRefresher.setImageViewHolder((ImageViewHolder) this.findViewById(R.id.preview_box_bg_img));
+        imageRefresher.setUseGlide(useGlide);
         //imageRefresher.setScaleType(ImageView.ScaleType.CENTER_CROP );
 
         textView = (TextView) this.findViewById(R.id.preview_box_title);

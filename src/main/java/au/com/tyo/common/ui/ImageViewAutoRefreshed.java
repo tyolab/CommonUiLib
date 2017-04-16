@@ -126,6 +126,14 @@ public class ImageViewAutoRefreshed {
         this.timeout = timeout;
     }
 
+    public boolean isUseGlide() {
+        return useGlide;
+    }
+
+    public void setUseGlide(boolean useGlide) {
+        this.useGlide = useGlide;
+    }
+
     private Runnable runnable = new Runnable() {
         @Override
         public void run() {
