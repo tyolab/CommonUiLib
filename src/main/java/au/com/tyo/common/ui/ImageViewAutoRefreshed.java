@@ -140,7 +140,8 @@ public class ImageViewAutoRefreshed {
         ++current;
         current %= images.size();
         try {
-            updateImage(current);
+            if (null != handler)
+                updateImage(current);
         }
         catch (Exception ex) {
             Log.e(LOG_TAG, ex.getMessage());
@@ -212,6 +213,19 @@ public class ImageViewAutoRefreshed {
 
     public void pause() {
         handler = null;
+
+        /**
+         * It seems that it is not a good idea to recycle bitmap here
+         */
+//        ImageView imageView = imageViewHolder.getImageView();
+//        if (null != imageView) {
+//            Drawable drawable = imageView.getDrawable();
+//            if (drawable instanceof BitmapDrawable) {
+//                BitmapDrawable bitmapDrawable = (BitmapDrawable) drawable;
+//                Bitmap bitmap = bitmapDrawable.getBitmap();
+//                bitmap.recycle();
+//            }
+//        }
     }
 
     public int getCurrentImageIndex() {
