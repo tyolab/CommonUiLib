@@ -170,51 +170,50 @@ public class ImageViewAutoRefreshed {
 
     private void updateImage(int current) throws Exception {
         Object item = images.get(current);
-        if (null != item)
-            return;
+        if (null != item) {
 
-        String url = null;
-        Drawable drawable = null;
+            String url = null;
+            Drawable drawable = null;
 
-        // timeout
-        int to = timeout > NEXT_IMAGE_TIMEOUT ? timeout : NEXT_IMAGE_TIMEOUT;
+            // timeout
+            int to = timeout > NEXT_IMAGE_TIMEOUT ? timeout : NEXT_IMAGE_TIMEOUT;
 
-        if (item instanceof Drawable)
-            drawable = (Drawable) item;
-        else if (item instanceof String)
-            url = (String) item;
-        else if (item instanceof ImageItem) {
-            ImageItem imageItem = (ImageItem) item;
-            drawable = imageItem.getDrawable();
-            url = (imageItem).getImageUrl();
-            to = imageItem.getTimeout() > to ? imageItem.getTimeout() : to;
-        } else {
-            if (null != listener)
-                listener.onEachRoundFinished();
-            throw new IllegalStateException("Image item must be a String type or a type implementing interface ImageItem");
+            if (item instanceof Drawable)
+                drawable = (Drawable) item;
+            else if (item instanceof String)
+                url = (String) item;
+            else if (item instanceof ImageItem) {
+                ImageItem imageItem = (ImageItem) item;
+                drawable = imageItem.getDrawable();
+                url = (imageItem).getImageUrl();
+                to = imageItem.getTimeout() > to ? imageItem.getTimeout() : to;
+            } else {
+                if (null != listener)
+                    listener.onEachRoundFinished();
+                throw new IllegalStateException("Image item must be a String type or a type implementing interface ImageItem");
+            }
+
+            if (drawable != null) {
+                imageViewHolder.getImageView().setImageDrawable(drawable);
+                return;
+            }
+
+            if (null == url)
+                return;
+
+            if (useGlide) {
+                Glide.with(imageViewHolder.getImageView().getContext())
+                        .load(url)
+                        .centerCrop()
+                        .error(defaultImage)
+                        .into(imageViewHolder.getImageView());
+            } else
+                imageDownloader.download(url, imageViewHolder.getImageView());
+
+
+            if (null != handler)
+                handler.postDelayed(runnable, to);
         }
-
-        if (drawable != null) {
-            imageViewHolder.getImageView().setImageDrawable(drawable);
-            return;
-        }
-
-        if (null == url)
-            return;
-
-        if (useGlide) {
-            Glide.with(imageViewHolder.getImageView().getContext())
-                    .load(url)
-                    .centerCrop()
-                    .error(defaultImage)
-                    .into(imageViewHolder.getImageView());
-        }
-        else
-            imageDownloader.download(url, imageViewHolder.getImageView());
-
-
-        if (null != handler)
-            handler.postDelayed(runnable, to);
 
         if (null != listener && current >= (images.size() - 1))
             listener.onEachRoundFinished();
