@@ -36,6 +36,7 @@ public class ImageViewAutoRefreshed {
 
     public static interface ImageItem {
         String getImageUrl();
+        Drawable getDrawable();
         int getTimeout();
         CharSequence getAlt();
     }
@@ -169,40 +170,48 @@ public class ImageViewAutoRefreshed {
 
     private void updateImage(int current) throws Exception {
         Object item = images.get(current);
+        if (null != item)
+            return;
 
-        String url;
+        String url = null;
+        Drawable drawable = null;
 
         // timeout
         int to = timeout > NEXT_IMAGE_TIMEOUT ? timeout : NEXT_IMAGE_TIMEOUT;
 
         if (item instanceof Drawable)
-            imageViewHolder.getImageView().setImageDrawable((Drawable) item);
-        else {
-            if (item instanceof String)
-                url = (String) item;
-            else if (item instanceof ImageItem) {
-                ImageItem imageItem = (ImageItem) item;
-                url = (imageItem).getImageUrl();
-                to = imageItem.getTimeout() > to ? imageItem.getTimeout() : to;
-            } else {
-                if (null != listener)
-                    listener.onEachRoundFinished();
-                throw new Exception("Image item must be a String type or a type implementing interface ImageItem");
-            }
-
-            if (null == url)
-                return;
-
-            if (useGlide) {
-                Glide.with(imageViewHolder.getImageView().getContext())
-                        .load(url)
-                        .centerCrop()
-                        .error(defaultImage)
-                        .into(imageViewHolder.getImageView());
-            }
-            else
-                imageDownloader.download(url, imageViewHolder.getImageView());
+            drawable = (Drawable) item;
+        else if (item instanceof String)
+            url = (String) item;
+        else if (item instanceof ImageItem) {
+            ImageItem imageItem = (ImageItem) item;
+            drawable = imageItem.getDrawable();
+            url = (imageItem).getImageUrl();
+            to = imageItem.getTimeout() > to ? imageItem.getTimeout() : to;
+        } else {
+            if (null != listener)
+                listener.onEachRoundFinished();
+            throw new IllegalStateException("Image item must be a String type or a type implementing interface ImageItem");
         }
+
+        if (drawable != null) {
+            imageViewHolder.getImageView().setImageDrawable(drawable);
+            return;
+        }
+
+        if (null == url)
+            return;
+
+        if (useGlide) {
+            Glide.with(imageViewHolder.getImageView().getContext())
+                    .load(url)
+                    .centerCrop()
+                    .error(defaultImage)
+                    .into(imageViewHolder.getImageView());
+        }
+        else
+            imageDownloader.download(url, imageViewHolder.getImageView());
+
 
         if (null != handler)
             handler.postDelayed(runnable, to);
@@ -217,20 +226,26 @@ public class ImageViewAutoRefreshed {
         /**
          * It seems that it is not a good idea to recycle bitmap here
          */
-//        ImageView imageView = imageViewHolder.getImageView();
-//        if (null != imageView) {
-//            Drawable drawable = imageView.getDrawable();
-//            if (drawable instanceof BitmapDrawable) {
-//                BitmapDrawable bitmapDrawable = (BitmapDrawable) drawable;
-//                Bitmap bitmap = bitmapDrawable.getBitmap();
-//                bitmap.recycle();
-//            }
-//        }
+        /** example recycle code
+        ImageView imageView = imageViewHolder.getImageView();
+        if (null != imageView) {
+            Drawable drawable = imageView.getDrawable();
+            if (drawable instanceof BitmapDrawable) {
+                BitmapDrawable bitmapDrawable = (BitmapDrawable) drawable;
+                Bitmap bitmap = bitmapDrawable.getBitmap();
+                bitmap.recycle();
+            }
+        }
+        */
     }
 
     public int getCurrentImageIndex() {
         return current;
     }
 
-
+    public ImageItem getImageItem(int i) {
+        if (images.size() > 0 && images.size() > i)
+            return (ImageItem) images.get(i);
+        return null;
+    }
 }
