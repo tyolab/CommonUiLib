@@ -71,7 +71,7 @@ public class PreviewBox extends FrameLayout {
         if (null != attrs) {
             TypedArray ta = context.obtainStyledAttributes(attrs, R.styleable.PreviewBox, 0, 0);
             try {
-                useGlide = ta.getBoolean(R.styleable.PreviewBox_useGlide, true);
+                useGlide = ta.getBoolean(R.styleable.PreviewBox_useGlide, false);
             } finally {
                 ta.recycle();
             }
@@ -197,6 +197,21 @@ public class PreviewBox extends FrameLayout {
      */
     public PreviewItem getPreviewItem() {
         return (PreviewItem) imageRefresher.getImageItem(0);
+    }
+
+    public boolean isUseGlide() {
+        return useGlide;
+    }
+
+    public void setUseGlide(boolean useGlide) {
+        this.useGlide = useGlide;
+
+        if (null != imageRefresher)
+            imageRefresher.setUseGlide(useGlide);
+    }
+
+    public void updateImage() {
+        imageRefresher.updateImage();
     }
 
 }

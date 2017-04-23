@@ -24,7 +24,7 @@ public class ImageViewAutoRefreshed {
 
     private ImageViewHolder imageViewHolder;
 
-    private boolean useGlide = true;
+    private boolean useGlide = false;
 
     private Drawable defaultImage;
 
@@ -101,10 +101,24 @@ public class ImageViewAutoRefreshed {
 
         images.add(item);
         current = images.size() - 1;
+        update();
+    }
+
+    public void updateImage() {
+        if (images.size() == 0)
+            return;
+
+        if (current < -1 && current >= images.size())
+            current = 0;
+
+        update();
+    }
+
+    private void update() {
         try {
             updateImage(current);
         }
-        catch (Exception ex) {}
+        catch (Exception ex) { Log.e(LOG_TAG, "error in updating the image"); }
     }
 
     public Object getCurrentImage() {
@@ -187,7 +201,12 @@ public class ImageViewAutoRefreshed {
                 drawable = imageItem.getDrawable();
                 url = (imageItem).getImageUrl();
                 to = imageItem.getTimeout() > to ? imageItem.getTimeout() : to;
-            } else {
+            }
+            else if (item instanceof Integer) {
+                // resource id
+                drawable = imageViewHolder.getImageView().getContext().getResources().getDrawable((Integer) item);
+            }
+            else {
                 if (null != listener)
                     listener.onEachRoundFinished();
                 throw new IllegalStateException("Image item must be a String type or a type implementing interface ImageItem");
