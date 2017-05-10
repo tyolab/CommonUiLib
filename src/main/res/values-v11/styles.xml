@@ -8,7 +8,5 @@
     <style name="CommonCheckBox.Dark" parent="@android:style/Widget.Holo.CompoundButton.CheckBox">
         <item name="android:textColor">@color/theme_dark_text_color</item>
     </style>   
-    
-    <style name="CommonTheme.Dark" parent="android:Theme.Holo" />
-    <style name="CommonTheme.Light" parent="android:Theme.Holo.Light" />
+
 </resources>
