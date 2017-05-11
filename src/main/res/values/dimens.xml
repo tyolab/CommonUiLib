@@ -94,4 +94,9 @@
 	<!-- Preview Box -->
 	<dimen name="preview_box_height">240px</dimen>
 	<dimen name="preview_box_width">320px</dimen>
+
+	<!-- Card Box -->
+	<dimen name="box_margin_right">18dp</dimen>
+	<dimen name="box_margin_bottom">18dp</dimen>
+	<dimen name="box_text_size_default">24sp</dimen>
 </resources>
