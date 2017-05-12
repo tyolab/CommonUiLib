@@ -72,6 +72,9 @@ public class PreviewBox extends FrameLayout {
             TypedArray ta = context.obtainStyledAttributes(attrs, R.styleable.PreviewBox, 0, 0);
             try {
                 useGlide = ta.getBoolean(R.styleable.PreviewBox_useGlide, false);
+                String item = ta.getString(R.styleable.PreviewBox_item);
+                if (null != item && item.length() > 0)
+                    imageRefresher.addImage(item);
             } finally {
                 ta.recycle();
             }

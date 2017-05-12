@@ -67,5 +67,6 @@
 
 	<declare-styleable name="PreviewBox">
 		<attr name="useGlide" format="boolean"/>
+		<attr name="item" format="string"/>
 	</declare-styleable>
 </resources>
