@@ -6,12 +6,12 @@
     android:focusable="true"
     android:clickable="true"
     android:focusableInTouchMode="true"
-    android:layout_marginRight="@dimen/box_margin_right"
+    android:layout_marginRight="@dimen/box_margin_left"
     android:layout_marginEnd="@dimen/box_margin_right"
     android:layout_marginBottom="@dimen/box_margin_bottom"
-    android:layout_marginLeft="@dimen/box_margin_right"
+    android:layout_marginLeft="@dimen/box_margin_left"
     android:layout_marginStart="@dimen/box_margin_right"
-    android:layout_marginTop="@dimen/box_margin_bottom"
+    android:layout_marginTop="@dimen/box_margin_top"
     android:padding="4dp"
     >
 
