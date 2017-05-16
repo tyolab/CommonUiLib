@@ -4,7 +4,7 @@ import android.content.Context;
 import android.util.AttributeSet;
 
 /**
- * Created by monfee on 22/3/17.
+ * Created by Eric Tang (eric.tang@tyo.com.au) on 22/3/17.
  */
 
 public class CardBox extends PreviewBox {

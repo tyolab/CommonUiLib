@@ -5,7 +5,7 @@ import android.util.AttributeSet;
 import android.widget.ImageView;
 
 /**
- * Created by monfee on 13/3/17.
+ * Created by Eric Tang (eric.tang@tyo.com.au) on 13/3/17.
  */
 
 public class PreviewBoxImageView extends android.support.v7.widget.AppCompatImageView implements ImageViewHolder {
