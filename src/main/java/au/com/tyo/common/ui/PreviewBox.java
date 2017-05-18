@@ -217,4 +217,8 @@ public class PreviewBox extends FrameLayout {
         imageRefresher.updateImage();
     }
 
+    public void clear() {
+        imageRefresher.clear();
+    }
+
 }

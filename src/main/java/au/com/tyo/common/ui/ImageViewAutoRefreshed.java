@@ -266,4 +266,9 @@ public class ImageViewAutoRefreshed {
             return (ImageItem) images.get(i);
         return null;
     }
+
+    public void clear() {
+        if (null != images)
+            images.clear();
+    }
 }
