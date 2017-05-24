@@ -29,7 +29,7 @@ public class ImageViewAutoRefreshed {
     private Drawable defaultImage;
 
     public interface OnImageRefreshStateListener {
-        void onEachRoundFinished();
+        void onEachRoundFinished(int timeout);
     }
 
     private OnImageRefreshStateListener listener;
@@ -178,19 +178,20 @@ public class ImageViewAutoRefreshed {
         }
         else {
             if (null != listener)
-                listener.onEachRoundFinished();
+                listener.onEachRoundFinished(0);
         }
     }
 
     private void updateImage(int current) throws Exception {
         Object item = images.get(current);
+        int to = NEXT_IMAGE_TIMEOUT;
         if (null != item) {
 
             String url = null;
             Drawable drawable = null;
 
             // timeout
-            int to = timeout > NEXT_IMAGE_TIMEOUT ? timeout : NEXT_IMAGE_TIMEOUT;
+            to = timeout > NEXT_IMAGE_TIMEOUT ? timeout : NEXT_IMAGE_TIMEOUT;
 
             if (item instanceof Drawable)
                 drawable = (Drawable) item;
@@ -208,7 +209,7 @@ public class ImageViewAutoRefreshed {
             }
             else {
                 if (null != listener)
-                    listener.onEachRoundFinished();
+                    listener.onEachRoundFinished(to);
                 throw new IllegalStateException("Image item must be a String type or a type implementing interface ImageItem");
             }
 
@@ -235,7 +236,7 @@ public class ImageViewAutoRefreshed {
         }
 
         if (null != listener && current >= (images.size() - 1))
-            listener.onEachRoundFinished();
+            listener.onEachRoundFinished(to);
     }
 
     public void pause() {
