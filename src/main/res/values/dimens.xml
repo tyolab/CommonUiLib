@@ -43,8 +43,8 @@
 	
 	<dimen name="donation_view_padding">16dp</dimen>
 	
-	<dimen name="drawer_left_width">280dp</dimen>
-	<dimen name="drawer_right_width">280dp</dimen>
+	<dimen name="drawer_left_width">240dp</dimen>
+	<dimen name="drawer_right_width">240dp</dimen>
 	
 	<dimen name="splash_screen_logo_width">56dp</dimen>
 	<dimen name="splash_screen_logo_height">56dp</dimen>
