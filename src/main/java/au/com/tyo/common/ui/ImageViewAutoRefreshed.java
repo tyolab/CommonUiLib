@@ -131,6 +131,8 @@ public class ImageViewAutoRefreshed {
      */
 	public void setImages(List images) {
 		this.images = images;
+
+        update();
 	}
 
     /**
