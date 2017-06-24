@@ -3,7 +3,7 @@
  *
  */
 
-package au.com.tyo.common;
+package au.com.tyo.common.model;
 
 public interface ImageTextListItem {
 

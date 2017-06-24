@@ -8,7 +8,7 @@ import android.widget.ImageView;
 import au.com.tyo.android.services.ImageDownloader;
 import au.com.tyo.android.utils.BitmapUtils;
 import au.com.tyo.android.utils.ListViewItemAdapter;
-import au.com.tyo.common.ImageTextListItem;
+import au.com.tyo.common.model.ImageTextListItem;
 
 public class ImageTextListViewAdapter extends ListViewItemAdapter<ImageTextListItem> {
 
