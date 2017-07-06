@@ -230,7 +230,7 @@ public class ImageViewAutoRefreshed {
                         .error(defaultImage)
                         .into(imageViewHolder.getImageView());
             } else
-                imageDownloader.download(url, imageViewHolder.getImageView());
+                imageDownloader.fetch(url, imageViewHolder.getImageView());
 
 
             if (null != handler)

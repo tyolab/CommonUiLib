@@ -51,7 +51,7 @@ public class ImageTextListViewAdapter extends ListViewItemAdapter<ImageTextListI
 	            if ((pos = link.indexOf("file://")) > -1)
 	            	link = link.substring(pos + 7);
 		        	
-	            imageDownloader.download(link, image);
+	            imageDownloader.fetch(link, image);
 	        }
 	        else {
 	        	if (hideImageViewWhenImageUnavaiable)
