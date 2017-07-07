@@ -1,12 +1,13 @@
 package au.com.tyo.common.ui;
 
-import java.util.ArrayList;
-
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageView;
+
+import java.util.ArrayList;
+
+import au.com.tyo.android.images.utils.BitmapUtils;
 import au.com.tyo.android.services.ImageDownloader;
-import au.com.tyo.android.utils.BitmapUtils;
 import au.com.tyo.android.utils.ListViewItemAdapter;
 import au.com.tyo.common.model.ImageTextListItem;
 
