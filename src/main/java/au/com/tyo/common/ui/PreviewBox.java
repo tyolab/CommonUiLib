@@ -108,6 +108,10 @@ public class PreviewBox extends FrameLayout {
         return (PreviewItem) imageRefresher.getCurrentImage();
     }
 
+    public int getImagesCount() {
+        return imageRefresher.getImagesCount();
+    }
+
     @Override
     protected void onFinishInflate() {
         super.onFinishInflate();

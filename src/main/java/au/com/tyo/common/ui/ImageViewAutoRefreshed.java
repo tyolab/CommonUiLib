@@ -28,6 +28,10 @@ public class ImageViewAutoRefreshed {
 
     private Drawable defaultImage;
 
+    public int getImagesCount() {
+        return images != null ? images.size() : 0;
+    }
+
     public interface OnImageRefreshStateListener {
         void onEachRoundFinished(int timeout);
     }
