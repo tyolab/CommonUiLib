@@ -7,6 +7,7 @@ import android.util.Log;
 
 import com.bumptech.glide.Glide;
 
+import java.net.URLDecoder;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -38,7 +39,7 @@ public class ImageViewAutoRefreshed {
 
     private OnImageRefreshStateListener listener;
 
-    public static interface ImageItem {
+    public interface ImageItem {
         String getImageUrl();
         Drawable getDrawable();
         int getTimeout();
@@ -226,6 +227,15 @@ public class ImageViewAutoRefreshed {
 
             if (null == url)
                 return;
+
+            if (url.contains("%")) {
+                String oldUrl = url;
+                try {
+                    url = URLDecoder.decode(url, "UTF-8");
+                } catch (Exception ex) {
+                    url = oldUrl;
+                }
+            }
 
             if (useGlide) {
                 Glide.with(imageViewHolder.getImageView().getContext())
