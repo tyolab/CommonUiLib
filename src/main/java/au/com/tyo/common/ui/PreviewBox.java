@@ -225,4 +225,9 @@ public class PreviewBox extends FrameLayout {
         imageRefresher.clear();
     }
 
+
+    public void setCacheLifespan(long cacheLifespan) {
+        imageRefresher.getImageDownloader().setCacheSpan(cacheLifespan);
+    }
+
 }
