@@ -8,10 +8,10 @@ import java.util.ArrayList;
 
 import au.com.tyo.android.images.utils.BitmapUtils;
 import au.com.tyo.android.services.ImageDownloader;
-import au.com.tyo.android.utils.ListViewItemAdapter;
+import au.com.tyo.android.adapter.ListViewItemAdapter;
 import au.com.tyo.common.model.ImageTextListItem;
 
-public class ImageTextListViewAdapter extends ListViewItemAdapter<ImageTextListItem> {
+public class ImageTextListViewAdapter extends ListViewItemAdapter {
 
 	protected boolean hideImageViewWhenImageUnavaiable;
 
@@ -36,7 +36,7 @@ public class ImageTextListViewAdapter extends ListViewItemAdapter<ImageTextListI
 	
 	@Override
 	public View getView(int position, View convertView, ViewGroup parent) {
-		ImageTextListItem page = items.get(position);
+		ImageTextListItem page = (ImageTextListItem) items.get(position);
 		
         convertView = super.getView(position, convertView, parent);
         

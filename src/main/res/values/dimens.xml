@@ -101,4 +101,5 @@
 	<dimen name="box_margin_left">18dp</dimen>
 	<dimen name="box_margin_top">6dp</dimen>
 	<dimen name="box_text_size_default">24sp</dimen>
+    <dimen name="card_radius">4dp</dimen>
 </resources>

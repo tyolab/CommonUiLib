@@ -89,28 +89,9 @@ public class CommonListView extends RelativeLayout implements OnScrollListener {
         ListView list = (ListView) factory.inflate(R.layout.common_list_view, null);
         if (null != parent)
         	parent.addView(list);
-        
-//      list = (ListView) findViewById(R.id.common_list_view);
-      
-//		list = new ListView(context);
-//		FrameLayout.LayoutParams params = new FrameLayout.LayoutParams(LayoutParams.MATCH_PARENT, LayoutParams.MATCH_PARENT);
-//		params.gravity = Gravity.CENTER_HORIZONTAL;	
-//		list.setLayoutParams(params);
-//		list.setOnTouchListener(new View.OnTouchListener() {
-//			 
-//		    public boolean onTouch(View v, MotionEvent event) {
-//		        return (event.getAction() == MotionEvent.ACTION_MOVE);
-//		    }
-//		});
         return list;
 	}
-	
-//	@Override
-//	protected void onFinishInflate() {
-//		super.onFinishInflate();
-////        list = (ListView) findViewById(R.id.common_list_view);
-////		this.addContentView(list);
-//	}
+
 	
 	public static boolean doesItemsFitInScreen(ListView list) {
 		if (list.getChildCount() == 0)
@@ -170,13 +151,5 @@ public class CommonListView extends RelativeLayout implements OnScrollListener {
 		if (null != list)
 			list.setChoiceMode(ListView.CHOICE_MODE_SINGLE);
 	}
-	
-//	@Override 
-//	public boolean onTouchEvent(MotionEvent ev) {
-//	   for(int i = 0; i < this.getChildCount(); i++){
-//	      this.getChildAt(i).dispatchTouchEvent(ev);
-//	   } 
-//	   return true;
-//	} 
 
 }
