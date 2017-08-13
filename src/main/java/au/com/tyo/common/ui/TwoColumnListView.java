@@ -8,7 +8,8 @@ package au.com.tyo.common.ui;
 import android.annotation.SuppressLint;
 import android.content.Context;
 import android.util.AttributeSet;
-import android.widget.AdapterView.OnItemClickListener;
+
+import au.com.tyo.android.widget.CommonListView;
 
 
 public class TwoColumnListView extends CommonListView {
