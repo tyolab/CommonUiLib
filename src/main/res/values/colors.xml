@@ -52,6 +52,14 @@
     <color name="default_background">#3d3d3d</color>
     <color name="sun_opaque">#AAFF8731</color>
     <color name="sun_light">#ffa767</color>
+    <color name="red">#ff0000</color>
+    <color name="red00">#20ff0000</color>
+    <color name="red10">#30ff0000</color>
+    <color name="red20">#40ff0000</color>
+    <color name="red30">#50ff0000</color>
+    <color name="red40">#55ff0000</color>
+    <color name="red50">#60ff0000</color>
+    <color name="red60">#70ff0000</color>
 
     <color name="lb_tv_white">#FFCCCCCC</color>
 </resources>
