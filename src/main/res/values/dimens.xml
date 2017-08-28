@@ -11,7 +11,7 @@
     <dimen name="main_view_margin_left">12dp</dimen>
     <dimen name="main_view_margin_right">12dp</dimen>
     
-    <!-- HEADER -->
+    <!-- SECTION_HEADER -->
     <dimen name="header_margin_top">8dp</dimen>
     <dimen name="header_margin_left">0dp</dimen>
     <dimen name="header_margin_right">0dp</dimen>
