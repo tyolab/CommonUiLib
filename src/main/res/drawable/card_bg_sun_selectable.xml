@@ -8,6 +8,10 @@
         android:state_focused="true" 
         android:drawable="@drawable/list_focused" />
      -->
+    <item
+        android:state_enabled="false"
+        android:drawable="@drawable/card_bg_sun_pale" />
+
     <item 
         android:state_pressed="true" android:state_checked="true" 
         android:drawable="@drawable/card_bg_sun_selected" />
