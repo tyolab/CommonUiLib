@@ -6,10 +6,12 @@ package au.com.tyo.common.ui;
 
 import android.content.Context;
 import android.content.res.TypedArray;
+import android.graphics.Matrix;
 import android.util.AttributeSet;
 import android.util.Log;
 import android.view.View;
 import android.widget.FrameLayout;
+import android.widget.ImageView;
 import android.widget.TextView;
 
 import java.util.List;
@@ -206,10 +208,18 @@ public class PreviewBox extends FrameLayout {
         return (PreviewItem) imageRefresher.getImageItem(0);
     }
 
+    /**
+     *
+     * @return
+     */
     public boolean isUseGlide() {
         return useGlide;
     }
 
+    /**
+     *
+     * @param useGlide
+     */
     public void setUseGlide(boolean useGlide) {
         this.useGlide = useGlide;
 
@@ -217,17 +227,39 @@ public class PreviewBox extends FrameLayout {
             imageRefresher.setUseGlide(useGlide);
     }
 
+    /**
+     *
+     */
     public void updateImage() {
         imageRefresher.updateImage();
     }
 
+    /**
+     *
+     */
     public void clear() {
         imageRefresher.clear();
     }
 
-
+    /**
+     *
+     * @param cacheLifespan
+     */
     public void setCacheLifespan(long cacheLifespan) {
         imageRefresher.getImageDownloader().setCacheSpan(cacheLifespan);
     }
 
+    /**
+     *
+     * @param angle
+     * @param x
+     * @param y
+     */
+    public void rotate(float angle, int x, int y) {
+        Matrix matrix = new Matrix();
+        ImageView imageView = getImageViewHolder().getImageView();
+        imageView.setScaleType(ImageView.ScaleType.MATRIX);
+        matrix.postRotate((float) angle, x, y);
+        imageView.setImageMatrix(matrix);
+    }
 }
