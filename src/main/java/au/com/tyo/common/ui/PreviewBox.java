@@ -204,8 +204,12 @@ public class PreviewBox extends FrameLayout {
      *
      * @return
      */
-    public PreviewItem getPreviewItem() {
-        return (PreviewItem) imageRefresher.getImageItem(0);
+    public Object getPreviewItem() {
+        return imageRefresher.getImageItem(0);
+    }
+
+    public List getPreviewItemList() {
+        return imageRefresher.getImageList();
     }
 
     /**

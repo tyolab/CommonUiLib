@@ -33,6 +33,10 @@ public class ImageViewAutoRefreshed {
         return images != null ? images.size() : 0;
     }
 
+    public List getImageList() {
+        return images;
+    }
+
     public interface OnImageRefreshStateListener {
         void onEachRoundFinished(int timeout);
     }
@@ -278,9 +282,9 @@ public class ImageViewAutoRefreshed {
         return current;
     }
 
-    public ImageItem getImageItem(int i) {
+    public Object getImageItem(int i) {
         if (images.size() > 0 && images.size() > i)
-            return (ImageItem) images.get(i);
+            return images.get(i);
         return null;
     }
 
