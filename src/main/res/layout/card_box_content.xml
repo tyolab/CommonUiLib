@@ -46,12 +46,7 @@
         android:padding="1dp"
         >
 
-        <ImageView
-            android:layout_width="match_parent"
-            android:layout_height="match_parent"
-            android:scaleType="centerCrop"
-            android:id="@+id/box_image_view"
-            />
+        <include layout="@layout/card_box_content_image" />
 
         <TextView
             android:layout_width="wrap_content"
