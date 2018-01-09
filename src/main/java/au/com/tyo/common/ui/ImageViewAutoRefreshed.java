@@ -1,6 +1,8 @@
 package au.com.tyo.common.ui;
 
 import android.content.Context;
+import android.graphics.Bitmap;
+import android.graphics.drawable.BitmapDrawable;
 import android.graphics.drawable.Drawable;
 import android.os.Handler;
 import android.util.Log;
@@ -206,6 +208,10 @@ public class ImageViewAutoRefreshed {
 
             if (item instanceof Drawable)
                 drawable = (Drawable) item;
+            else if (item instanceof Bitmap) {
+                Bitmap bitmap = (Bitmap) item;
+                drawable = new BitmapDrawable(bitmap);
+            }
             else if (item instanceof String)
                 url = (String) item;
             else if (item instanceof ImageItem) {
