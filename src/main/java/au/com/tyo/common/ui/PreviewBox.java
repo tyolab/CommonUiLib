@@ -199,6 +199,10 @@ public class PreviewBox extends FrameLayout {
         return imageRefresher.getImageViewHolder();
     }
 
+    public ImageViewAutoRefreshed getImageRefresher() {
+        return imageRefresher;
+    }
+
     /**
      * Assuming we get the first one in the list
      *
