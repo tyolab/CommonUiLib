@@ -1,8 +1,5 @@
 <resources>
     <dimen name="header_margin_top">12dp</dimen>
-    
-    <dimen name="abstract_screen_margin_top">6dp</dimen>
-	<dimen name="abstract_screen_margin_bottom">6dp</dimen>
 	
 	<dimen name="drawer_left_width">480dp</dimen>
 	<dimen name="drawer_right_width">480dp</dimen>
