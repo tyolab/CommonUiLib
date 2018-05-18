@@ -13,6 +13,8 @@ import java.net.URLDecoder;
 import java.util.ArrayList;
 import java.util.List;
 
+import au.com.tyo.io.Cache;
+
 import au.com.tyo.android.services.ImageDownloader;
 
 /**
@@ -98,6 +100,12 @@ public class ImageViewAutoRefreshed {
         return timeout;
     }
 
+    /**
+     * error: cannot access Cache
+     * class file for au.com.tyo.io.Cache not found
+     *
+     * @param quality
+     */
     public void setImageQuality(int quality) {
         imageDownloader.setQuality(quality);
     }
@@ -250,8 +258,7 @@ public class ImageViewAutoRefreshed {
             if (useGlide) {
                 Glide.with(imageViewHolder.getImageView().getContext())
                         .load(url)
-                        .centerCrop()
-                        .error(defaultImage)
+                        //.error(defaultImage)
                         .into(imageViewHolder.getImageView());
             } else
                 imageDownloader.fetch(url, imageViewHolder.getImageView());
