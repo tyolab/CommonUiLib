@@ -13,15 +13,13 @@ import java.net.URLDecoder;
 import java.util.ArrayList;
 import java.util.List;
 
-import au.com.tyo.io.Cache;
-
 import au.com.tyo.android.services.ImageDownloader;
 
 /**
  * Created by "Eric Tang (dev@tyo.com.au)" on 14/1/17.
  */
 
-public class ImageViewAutoRefreshed {
+public class ImageViewAutoRefreshed extends ViewAutoRefresher {
 
     private static final String LOG_TAG = "ImageViewAutoRefreshed";
 
@@ -33,19 +31,7 @@ public class ImageViewAutoRefreshed {
 
     private Drawable defaultImage;
 
-    public int getImagesCount() {
-        return images != null ? images.size() : 0;
-    }
-
-    public List getImageList() {
-        return images;
-    }
-
-    public interface OnImageRefreshStateListener {
-        void onEachRoundFinished(int timeout);
-    }
-
-    private OnImageRefreshStateListener listener;
+    protected List images;
 
     public interface ImageItem {
         String getImageUrl();
@@ -54,24 +40,10 @@ public class ImageViewAutoRefreshed {
         CharSequence getAlt();
     }
 
-    private List images;
-
-	/**
-	 * index of current showing image
-	 */
-	protected int current = -1;
-
-    /**
-     *
-     */
-    private int timeout = -1;
-
     /**
      * Image downloader
      */
     private ImageDownloader imageDownloader;
-
-    private Handler handler;
 
     public ImageViewAutoRefreshed(Context context) {
         init(context);
@@ -80,7 +52,6 @@ public class ImageViewAutoRefreshed {
     private void init(Context context) {
         images = null;
         imageDownloader = new ImageDownloader(context, "images");
-        listener = null;
         defaultImage = null;
     }
 
@@ -96,10 +67,6 @@ public class ImageViewAutoRefreshed {
         return imageDownloader;
     }
 
-    public int getTimeout() {
-        return timeout;
-    }
-
     /**
      * error: cannot access Cache
      * class file for au.com.tyo.io.Cache not found
@@ -110,58 +77,6 @@ public class ImageViewAutoRefreshed {
         imageDownloader.setQuality(quality);
     }
 
-    public void setOnImageRefreshStateListener(OnImageRefreshStateListener listener) {
-        this.listener = listener;
-    }
-
-    public void addImage(Object item) {
-        if (null == images)
-            images = new ArrayList();
-
-        images.add(item);
-        current = images.size() - 1;
-        update();
-    }
-
-    public void updateImage() {
-        if (images.size() == 0)
-            return;
-
-        if (current < -1 && current >= images.size())
-            current = 0;
-
-        update();
-    }
-
-    private void update() {
-        try {
-            updateImage(current);
-        }
-        catch (Exception ex) { Log.e(LOG_TAG, "error in updating the image"); }
-    }
-
-    public Object getCurrentImage() {
-        return null != images ? images.get(current) : null;
-    }
-
-    /**
-	 *
-	 * @param images
-     */
-	public void setImages(List images) {
-		this.images = images;
-
-        update();
-	}
-
-    /**
-     *
-     * @param timeout, in millisecond
-     */
-    public void setTimeout(int timeout) {
-        this.timeout = timeout;
-    }
-
     public boolean isUseGlide() {
         return useGlide;
     }
@@ -170,40 +85,14 @@ public class ImageViewAutoRefreshed {
         this.useGlide = useGlide;
     }
 
-    private Runnable runnable = new Runnable() {
-        @Override
-        public void run() {
-        ++current;
-        current %= images.size();
-        try {
-            if (null != handler)
-                updateImage(current);
-        }
-        catch (Exception ex) {
-            Log.e(LOG_TAG, ex.getMessage());
-        }
-        }
-    };
-
     /**
      * Start auto refreshing images
      */
-    public void display() throws Exception {
-        if (null != images && images.size() > 0) {
-            current = 0;
-
-            if (images.size() > 1) {
-                handler = new Handler();
-            }
-            updateImage(current);
-        }
-        else {
-            if (null != listener)
-                listener.onEachRoundFinished(0);
-        }
+    public void display() {
+        start();
     }
 
-    private void updateImage(int current) throws Exception {
+    protected void updateImage(int current) throws Exception {
         Object item = images.get(current);
         int to = NEXT_IMAGE_TIMEOUT;
         if (null != item) {
@@ -233,8 +122,7 @@ public class ImageViewAutoRefreshed {
                 drawable = imageViewHolder.getImageView().getContext().getResources().getDrawable((Integer) item);
             }
             else {
-                if (null != listener)
-                    listener.onEachRoundFinished(to);
+                onRefreshRoundFinished(to);
                 throw new IllegalStateException("Image item must be a String type or a type implementing interface ImageItem");
             }
 
@@ -262,14 +150,9 @@ public class ImageViewAutoRefreshed {
                         .into(imageViewHolder.getImageView());
             } else
                 imageDownloader.fetch(url, imageViewHolder.getImageView());
-
-
-            if (null != handler)
-                handler.postDelayed(runnable, to);
         }
 
-        if (null != listener && current >= (images.size() - 1))
-            listener.onEachRoundFinished(to);
+        super.updateImage(current);
     }
 
     public void pause() {
@@ -304,5 +187,41 @@ public class ImageViewAutoRefreshed {
     public void clear() {
         if (null != images)
             images.clear();
+    }
+
+    public int getImagesCount() {
+        return images != null ? images.size() : 0;
+    }
+
+    public List getImageList() {
+        return images;
+    }
+
+    public void addImage(Object item) {
+        if (null == images)
+            images = new ArrayList();
+
+        images.add(item);
+        current = images.size() - 1;
+        update();
+    }
+
+    /**
+     *
+     * @param images
+     */
+    public void setImages(List images) {
+        this.images = images;
+
+        update();
+    }
+
+    @Override
+    public int getRefreshTimes() {
+        return null == images ? 0 : images.size();
+    }
+
+    public Object getCurrentImage() {
+        return null != images ? images.get(current) : null;
     }
 }
