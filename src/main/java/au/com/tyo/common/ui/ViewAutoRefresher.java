@@ -29,7 +29,7 @@ public class ViewAutoRefresher {
     private boolean pause;
 
     public ViewAutoRefresher() {
-        handler = new Handler();
+        handler = null;
         listener = null;
         pause = false;
         timeout = 0;
@@ -82,8 +82,11 @@ public class ViewAutoRefresher {
             ++current;
             current %= getRefreshTimes();
             try {
-                if (null != handler)
+                if (null != handler) {
                     updateImage(current);
+
+                    refresh(timeout);
+                }
             } catch (Exception ex) {
                 Log.e(LOG_TAG, "Unrecoverable error:", ex);
             }
@@ -93,8 +96,6 @@ public class ViewAutoRefresher {
     protected void updateImage(int current) throws Exception {
         if (null != listener)
             listener.update(current);
-
-        refresh(timeout);
     }
 
     public void setOnImageRefreshStateListener(OnImageRefreshStateListener listener) {
