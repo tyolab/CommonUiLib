@@ -128,14 +128,12 @@ public class PreviewBox extends FrameLayout {
 
         imageRefresher.setImageViewHolder((ImageViewHolder) this.findViewById(R.id.preview_box_bg_img));
         imageRefresher.setUseGlide(useGlide);
-        //imageRefresher.setScaleType(ImageView.ScaleType.CENTER_CROP );
 
         textView = (TextView) this.findViewById(R.id.preview_box_title);
         if (null == textView) {
             textView = new TextView(this.getContext());
             bgView.addView(textView);
         }
-        //setTitleResource(R.string.empty_string);
     }
 
     public void setInnerBackgroundResource(int resId) {
@@ -173,7 +171,7 @@ public class PreviewBox extends FrameLayout {
     }
 
     /**
-     *
+     * Start slide show
      */
     public void start() {
         try {
@@ -183,6 +181,9 @@ public class PreviewBox extends FrameLayout {
         }
     }
 
+    /**
+     * Sto slide show
+     */
     public void stop() {
         imageRefresher.pause();
     }

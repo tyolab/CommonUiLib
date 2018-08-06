@@ -4,8 +4,8 @@ import android.content.Context;
 import android.graphics.Bitmap;
 import android.graphics.drawable.BitmapDrawable;
 import android.graphics.drawable.Drawable;
-import android.os.Handler;
-import android.util.Log;
+import android.net.Uri;
+import android.widget.ImageView;
 
 import com.bumptech.glide.Glide;
 
@@ -96,60 +96,63 @@ public class ImageViewAutoRefreshed extends ViewAutoRefresher {
         Object item = images.get(current);
         int to = NEXT_IMAGE_TIMEOUT;
         if (null != item) {
+            ImageView imageView = imageViewHolder.getImageView();
 
-            String url = null;
-            Drawable drawable = null;
-
-            // timeout
-            to = timeout > NEXT_IMAGE_TIMEOUT ? timeout : NEXT_IMAGE_TIMEOUT;
-
-            if (item instanceof Drawable)
-                drawable = (Drawable) item;
-            else if (item instanceof Bitmap) {
-                Bitmap bitmap = (Bitmap) item;
-                drawable = new BitmapDrawable(bitmap);
-            }
-            else if (item instanceof String)
-                url = (String) item;
-            else if (item instanceof ImageItem) {
-                ImageItem imageItem = (ImageItem) item;
-                drawable = imageItem.getDrawable();
-                url = (imageItem).getImageUrl();
-                to = imageItem.getTimeout() > to ? imageItem.getTimeout() : to;
-            }
-            else if (item instanceof Integer) {
-                // resource id
-                drawable = imageViewHolder.getImageView().getContext().getResources().getDrawable((Integer) item);
+            if (item instanceof Uri) {
+                imageView.setImageURI((Uri) item);
             }
             else {
-                onRefreshRoundFinished(to);
-                throw new IllegalStateException("Image item must be a String type or a type implementing interface ImageItem");
-            }
+                String url = null;
+                Drawable drawable = null;
 
-            if (drawable != null) {
-                imageViewHolder.getImageView().setImageDrawable(drawable);
-                return;
-            }
+                // timeout
+                to = timeout > NEXT_IMAGE_TIMEOUT ? timeout : NEXT_IMAGE_TIMEOUT;
 
-            if (null == url)
-                return;
-
-            if (url.contains("%")) {
-                String oldUrl = url;
-                try {
-                    url = URLDecoder.decode(url, "UTF-8");
-                } catch (Exception ex) {
-                    url = oldUrl;
+                if (item instanceof Drawable)
+                    drawable = (Drawable) item;
+                else if (item instanceof Bitmap) {
+                    Bitmap bitmap = (Bitmap) item;
+                    drawable = new BitmapDrawable(bitmap);
+                } else if (item instanceof String)
+                    url = (String) item;
+                else if (item instanceof ImageItem) {
+                    ImageItem imageItem = (ImageItem) item;
+                    drawable = imageItem.getDrawable();
+                    url = (imageItem).getImageUrl();
+                    to = imageItem.getTimeout() > to ? imageItem.getTimeout() : to;
+                } else if (item instanceof Integer) {
+                    // resource id
+                    drawable = imageView.getContext().getResources().getDrawable((Integer) item);
+                } else {
+                    onRefreshRoundFinished(to);
+                    throw new IllegalStateException("Image item must be a String type or a type implementing interface ImageItem");
                 }
-            }
 
-            if (useGlide) {
-                Glide.with(imageViewHolder.getImageView().getContext())
-                        .load(url)
-                        //.error(defaultImage)
-                        .into(imageViewHolder.getImageView());
-            } else
-                imageDownloader.fetch(url, imageViewHolder.getImageView());
+                if (drawable != null) {
+                    imageView.setImageDrawable(drawable);
+                    return;
+                }
+
+                if (null == url)
+                    return;
+
+                if (url.contains("%")) {
+                    String oldUrl = url;
+                    try {
+                        url = URLDecoder.decode(url, "UTF-8");
+                    } catch (Exception ex) {
+                        url = oldUrl;
+                    }
+                }
+
+                if (useGlide) {
+                    Glide.with(imageView.getContext())
+                            .load(url)
+                            //.error(defaultImage)
+                            .into(imageView);
+                } else
+                    imageDownloader.fetch(url, imageView);
+            }
         }
 
         super.updateImage(current);
