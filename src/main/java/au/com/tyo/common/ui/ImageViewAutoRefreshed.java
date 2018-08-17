@@ -201,6 +201,9 @@ public class ImageViewAutoRefreshed extends ViewAutoRefresher {
     }
 
     public void addImage(Object item) {
+        if (null == item)
+            return;
+
         if (null == images)
             images = new ArrayList();
 

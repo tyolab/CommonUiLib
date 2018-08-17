@@ -50,7 +50,7 @@
 	<!-- Sun Top color -->
 	<item android:top="5px" android:left="1px" android:right="1px" android:bottom="6px" > 
 		<shape android:shape="rectangle">		 
-		<solid android:color="#FF8731" />
+		<solid android:color="@color/sun_default" />
 		<corners android:radius="@dimen/card_radius" />
 		</shape>	 
 	</item>
