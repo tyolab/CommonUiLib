@@ -64,4 +64,9 @@
     <color name="lb_tv_white">#FFCCCCCC</color>
     <color name="sun_pale">#ffc79f</color>
     <color name="sun_default">#FF8731</color>
+
+    <color name="td_ring_color">#ffffff</color>
+    <color name="td_color_circle">#ffffff</color>
+    <color name="td_cr_color_circle">#ffffff</color>
+    <color name="td_cr_color_ring">#ffffff</color>
 </resources>

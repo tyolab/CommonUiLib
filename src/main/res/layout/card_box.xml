@@ -12,7 +12,7 @@
     android:layout_marginLeft="@dimen/box_margin_left"
     android:layout_marginStart="@dimen/box_margin_right"
     android:layout_marginTop="@dimen/box_margin_top"
-    android:padding="4dp"
+    android:padding="@dimen/box_padding"
     >
 
     <include layout="@layout/card_box_content" />

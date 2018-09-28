@@ -190,6 +190,9 @@ public class ImageViewAutoRefreshed extends ViewAutoRefresher {
     public void clear() {
         if (null != images)
             images.clear();
+
+        if (null != getImageViewHolder().getImageView())
+            getImageViewHolder().getImageView().setImageBitmap(null);
     }
 
     public int getImagesCount() {
