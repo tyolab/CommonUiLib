@@ -109,5 +109,6 @@
 	<!-- Shapes -->
     <dimen name="td_ring_width">1dp</dimen>
     <dimen name="td_cr_ring_width">1dp</dimen>
+    <dimen name="sq_radius">0dp</dimen>
 
 </resources>
