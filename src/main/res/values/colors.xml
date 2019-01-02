@@ -21,12 +21,14 @@
     for the browser -->
 <resources>
     <color name="theme_light_background_color">#eeeeee</color>
-    <color name="theme_light_text_color">#000000</color>
+    <color name="theme_light_text_color">#232323</color>
+    <color name="theme_light_title_color">#161616</color>
     <color name="theme_light_card_background_color">#ffffff</color>
     <color name="theme_light_drawer_background_color">#ffffff</color>
     
     <color name="theme_dark_background_color">#000000</color>
-    <color name="theme_dark_text_color">#ffffff</color> 
+    <color name="theme_dark_text_color">#efefef</color>
+    <color name="theme_dark_title_color">#ffffff</color>
     <color name="theme_dark_card_background_color">#9cb078</color>
     <color name="theme_dark_drawer_background_color">#000000</color>
 
