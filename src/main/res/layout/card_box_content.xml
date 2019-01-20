@@ -36,13 +36,15 @@
         android:clickable="false"
         />
 
+    <!--
+        card_view:cardUseCompatPadding="true"
+        card_view:cardElevation="2dp"
+        card_view:cardCornerRadius="1dp"
+    -->
     <au.com.tyo.common.ui.BoxCardView
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:id="@+id/preview_box_bg_img"
-        card_view:cardUseCompatPadding="true"
-        card_view:cardElevation="2dp"
-        card_view:cardCornerRadius="1dp"
         android:padding="1dp"
         >
 
