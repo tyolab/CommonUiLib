@@ -39,7 +39,8 @@
     <color name="background_gradient_start">#000000</color>
     <color name="background_gradient_end">#DDDDDD</color>
     <color name="fastlane_background">#0096a6</color>
-    <color name="search_opaque">#C95F5D5D</color>
+    <color name="search_opaque">#995F5D5D</color>
+    <color name="search_opaque_lighter">#99DADADA</color>
     <color name="selected_background">#ff8731</color>
     <color name="detail_background">#0096a6</color>
     <color name="soft_opaque">#30000000</color>
