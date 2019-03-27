@@ -8,7 +8,7 @@ import android.widget.ImageView;
  * Created by Eric Tang (eric.tang@tyo.com.au) on 13/3/17.
  */
 
-public class PreviewBoxImageView extends android.support.v7.widget.AppCompatImageView implements ImageViewHolder {
+public class PreviewBoxImageView extends androidx.appcompat.widget.AppCompatImageView implements ImageViewHolder {
 
     public PreviewBoxImageView(Context context) {
         super(context);

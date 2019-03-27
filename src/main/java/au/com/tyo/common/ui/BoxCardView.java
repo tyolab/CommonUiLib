@@ -1,9 +1,10 @@
 package au.com.tyo.common.ui;
 
 import android.content.Context;
-import android.support.v7.widget.CardView;
 import android.util.AttributeSet;
 import android.widget.ImageView;
+
+import androidx.cardview.widget.CardView;
 
 /**
  * Created by Eric Tang (eric.tang@tyo.com.au) on 14/3/17.
