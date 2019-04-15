@@ -157,6 +157,7 @@ public class AutoRefresher {
     }
 
     public void start() {
+        setPause(false);
         refresh(timeout);
     }
 
