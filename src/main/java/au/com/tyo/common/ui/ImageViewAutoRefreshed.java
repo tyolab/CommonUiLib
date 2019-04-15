@@ -19,7 +19,7 @@ import au.com.tyo.android.services.ImageDownloader;
  * Created by "Eric Tang (dev@tyo.com.au)" on 14/1/17.
  */
 
-public class ImageViewAutoRefreshed extends ViewAutoRefresher {
+public class ImageViewAutoRefreshed extends AutoRefresher {
 
     private static final String LOG_TAG = "ImageViewAutoRefreshed";
 
@@ -92,7 +92,7 @@ public class ImageViewAutoRefreshed extends ViewAutoRefresher {
         start();
     }
 
-    protected void updateImage(int current) throws Exception {
+    protected void updateTarget(int current) throws Exception {
         Object item = images.get(current);
         int to = NEXT_IMAGE_TIMEOUT;
         if (null != item) {
@@ -155,7 +155,7 @@ public class ImageViewAutoRefreshed extends ViewAutoRefresher {
             }
         }
 
-        super.updateImage(current);
+        super.updateTarget(current);
     }
 
     public void pause() {

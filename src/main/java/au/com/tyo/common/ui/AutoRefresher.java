@@ -3,9 +3,9 @@ package au.com.tyo.common.ui;
 import android.os.Handler;
 import android.util.Log;
 
-public class ViewAutoRefresher {
+public class AutoRefresher {
 
-    private static final String LOG_TAG = "ViewAutoRefresher";
+    private static final String LOG_TAG = "AutoRefresher";
 
     /**
      * index of current showing image
@@ -17,23 +17,44 @@ public class ViewAutoRefresher {
      */
     protected int timeout = -1;
 
+    /**
+     *
+     */
     protected Handler handler;
-
-    private OnImageRefreshStateListener listener;
 
     /**
      *
      */
+    private OnRefreshStateListener listener;
+
+    /**
+     * The times of being refreshed in the current round
+     */
     private int refreshTimes;
 
+    /**
+     * The total round number
+     */
+    private int round;
+
+    /**
+     *
+     */
     private boolean pause;
 
-    public ViewAutoRefresher() {
+    public AutoRefresher() {
+        this(0);
+    }
+
+    public AutoRefresher(int timeout) {
+        this.timeout = timeout;
+
         handler = null;
+
         listener = null;
         pause = false;
-        timeout = 0;
         refreshTimes = 0;
+        round = 0;
     }
 
     public synchronized boolean isPause() {
@@ -52,7 +73,11 @@ public class ViewAutoRefresher {
         this.refreshTimes = refreshTimes;
     }
 
-    public interface OnImageRefreshStateListener {
+    public void setHandler(Handler handler) {
+        this.handler = handler;
+    }
+
+    public interface OnRefreshStateListener {
         void onEachRoundFinished(long timeout);
         void update(int current);
     }
@@ -63,7 +88,7 @@ public class ViewAutoRefresher {
 
     protected void update() {
         try {
-            updateImage(current);
+            updateTarget(current);
         }
         catch (Exception ex) { Log.e(LOG_TAG, "error in updating the image", ex); }
     }
@@ -82,27 +107,28 @@ public class ViewAutoRefresher {
             ++current;
             current %= getRefreshTimes();
             try {
-                if (null != handler) {
-                    updateImage(current);
-
-                    refresh(timeout);
-                }
+                onTimeout();
+                refresh(timeout);
             } catch (Exception ex) {
                 Log.e(LOG_TAG, "Unrecoverable error:", ex);
             }
         }
     };
 
-    protected void updateImage(int current) throws Exception {
+    public void onTimeout() throws Exception {
+        updateTarget(current);
+    }
+
+    protected void updateTarget(int current) throws Exception {
         if (null != listener)
             listener.update(current);
     }
 
-    public void setOnImageRefreshStateListener(OnImageRefreshStateListener listener) {
+    public void setOnViewRefreshStateListener(OnRefreshStateListener listener) {
         this.listener = listener;
     }
 
-    public OnImageRefreshStateListener getOnImageRefreshStateListner() {
+    public OnRefreshStateListener getOnImageRefreshStateListner() {
         return listener;
     }
 
@@ -115,7 +141,7 @@ public class ViewAutoRefresher {
             listener.onEachRoundFinished(timeout);
     }
 
-    public void updateImage() {
+    public void updateTarget() {
         if (getRefreshTimes() == 0)
             return;
 
@@ -125,21 +151,21 @@ public class ViewAutoRefresher {
         update();
     }
 
+    public void start() {
+        refresh(timeout);
+    }
+
     protected void refresh(long to) {
         if (!pause && null != handler)
             handler.postDelayed(runnable, to);
     }
 
-    public void start() {
+    public void startRefreshing() {
         if (getRefreshTimes() > 0) {
             current = 0;
 
-            if (getRefreshTimes() > 1) {
-                handler = new Handler();
-            }
-
             try {
-                updateImage(current);
+                updateTarget(current);
             } catch (Exception e) {
                 Log.e(LOG_TAG, "auto refresher failed to update view", e);
             }

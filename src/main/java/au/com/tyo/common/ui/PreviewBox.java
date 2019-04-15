@@ -188,8 +188,8 @@ public class PreviewBox extends FrameLayout {
         imageRefresher.pause();
     }
 
-    public void setEachPreviewRoundFinishedListener(ImageViewAutoRefreshed.OnImageRefreshStateListener listener) {
-        imageRefresher.setOnImageRefreshStateListener(listener);
+    public void setEachPreviewRoundFinishedListener(AutoRefresher.OnRefreshStateListener listener) {
+        imageRefresher.setOnViewRefreshStateListener(listener);
     }
 
     public ImageDownloader getImageDownloader() {
@@ -240,7 +240,7 @@ public class PreviewBox extends FrameLayout {
      *
      */
     public void updateImage() {
-        imageRefresher.updateImage();
+        imageRefresher.updateTarget();
     }
 
     /**
