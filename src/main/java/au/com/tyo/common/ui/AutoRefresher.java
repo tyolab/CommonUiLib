@@ -104,11 +104,16 @@ public class AutoRefresher {
     private Runnable runnable = new Runnable() {
         @Override
         public void run() {
+            // set the current refresh times index
             ++current;
-            current %= getRefreshTimes();
+            if (refreshTimes > 0)
+                current %= getRefreshTimes();
+
             try {
                 onTimeout();
-                refresh(timeout);
+
+                if (timeout > 0)
+                    refresh(timeout);
             } catch (Exception ex) {
                 Log.e(LOG_TAG, "Unrecoverable error:", ex);
             }
