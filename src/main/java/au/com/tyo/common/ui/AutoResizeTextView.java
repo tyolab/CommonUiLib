@@ -26,7 +26,7 @@ import android.widget.TextView;
 /**
  * a textView that is able to self-adjust its font size depending on the min and max size of the font, and its own size.<br/>
  * code is heavily based on this StackOverflow thread:
- * http://stackoverflow.com/questions/16017165/auto-fit-textview-for-android/21851239#21851239 <br/>
+ * <a href="http://stackoverflow.com/questions/16017165/auto-fit-textview-for-android/21851239#21851239">Click Here</a> <br/>
  * It should work fine with most Android versions, but might have some issues on Android 3.1 - 4.04, as setTextSize will only work for the first time. <br/>
  * More info here: https://code.google.com/p/android/issues/detail?id=22493 and here in case you wish to fix it: http://stackoverflow.com/a/21851239/878126
  */
