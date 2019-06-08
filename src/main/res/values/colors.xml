@@ -74,4 +74,6 @@
     <color name="td_cr_color_circle">#ffffff</color>
     <color name="td_cr_color_ring">#ffffff</color>
     <color name="light_gray">#E6E3E2</color>
+
+    <color name="list_cell_background_color_checked">#AFC5D8</color>
 </resources>
