@@ -50,7 +50,7 @@
 	<!-- Green Top color -->
 	<item android:top="5px" android:left="1px" android:right="1px" android:bottom="6px" > 
 		<shape android:shape="rectangle">		 
-		<solid android:color="#53a93f" />
+		<solid android:color="#1CA6B8" />
 		<corners android:radius="@dimen/card_radius" />
 		</shape>	 
 	</item>
